@@ -1,9 +1,12 @@
 package team.gutterteam123.database.objects;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import team.gutterteam123.database.DatabaseObj;
-
+@Getter
+@Setter
 public class PostObj implements DatabaseObj {
 
     protected String messages;
