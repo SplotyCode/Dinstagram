@@ -27,10 +27,31 @@ public class UserObj implements DatabaseObj {
     public void read(Document document) {
         name = document.getString("name");
         password = document.getString("password");
+        userId = document.getLong("userId");
+        following = (Set<Long>) document.get("following", Set.class);
+        follower = (Set<Long>) document.get("follower", Set.class);
+        followerInt = document.getLong("followerInt");
+        followingInt = document.getLong("followingInt");
+        postsInt = document.getLong("postsInt");
+        lastPost = document.getLong("lastPosts");
+        posts = (Set<Long>) document.get("posts", Set.class);
+
     }
 
     @Override
     public void write(Document document) {
+        document.put("name", name);
+        document.put("userId", userId);
+        document.put("following",following);
+        document.put("follower", follower);
+        document.put("followerInt", followerInt);
+        document.put("followingInt", followingInt);
+        document.put("postsInt", postsInt);
+        document.put("lastPost", lastPost);
+        document.put("posts", posts);
+
+
 
     }
+
 }
