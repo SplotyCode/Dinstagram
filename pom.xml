@@ -23,6 +23,8 @@
     <modules>
         <module>Starter</module>
         <module>Database</module>
+        <module>NetLib</module>
+        <module>BaseLib</module>
     </modules>
 
     <dependencies>
