@@ -25,6 +25,7 @@
         <module>Database</module>
         <module>NetLib</module>
         <module>BaseLib</module>
+        <module>Master</module>
     </modules>
 
     <dependencies>

@@ -56,6 +56,7 @@ public class ArgumentBuilder {
             for (String value : input) {
                 if (value.startsWith("-")) {
                     argument = arguments.stream().filter(par -> par.getName().equalsIgnoreCase(value.substring(1))).findFirst().orElseThrow(() -> new ArithmeticException("Invalid key " + value));
+                    arguments.remove(argument);
                     if (argument.getField().getType() == boolean.class) {
                         argument.getField().setAccessible(true);
                         argument.getField().set(object, true);
@@ -75,6 +76,11 @@ public class ArgumentBuilder {
             ex.printStackTrace();
         }
 
+        for (Argument stillPresent : arguments) {
+            if (stillPresent.getParameter().needed()) {
+                throw new BuilderException(stillPresent.getName() + " need to be specified");
+            }
+        }
     }
 
     private void addDefaults() {
