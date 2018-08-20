@@ -1,11 +1,11 @@
 package team.gutterteam123.database;
 
-import org.bson.conversions.Bson;
+import org.bson.Document;
 
 public interface DatabaseObj {
 
-    void read(Bson bson);
-    void write(Bson bson);
+    void read(Document document);
+    void write(Document document);
 
 
 }
