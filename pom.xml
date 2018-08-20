@@ -22,6 +22,7 @@
     </build>
     <modules>
         <module>Starter</module>
+        <module>Database</module>
     </modules>
 
     <dependencies>
