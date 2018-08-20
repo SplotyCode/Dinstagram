@@ -13,10 +13,16 @@ public class Starter {
 
     private Starter(String[] args) {
         ProcessBuilder builder = new ProcessBuilder("git", "clone", "https://github.com/SplotyCode/Dinstagram.git");
+        try {
+            Runtime.getRuntime().exec("cd " + System.getProperty("user.home") + "/Dinstagram/repo/ & git clone https://github.com/SplotyCode/Dinstagram.git");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         File directory = new File(System.getProperty("user.home") + "/Dinstagram/repo/");
         directory.mkdirs();
         builder.directory(directory);
         builder.inheritIO();
+        System.out.println(System.getProperty("os.name"));
 
         try {
             builder.start();
