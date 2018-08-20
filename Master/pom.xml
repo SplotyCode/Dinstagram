@@ -18,6 +18,11 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>team.gutterteam123.Master</mainClass>
+                        </manifest>
+                    </archive>
                     <outputDirectory>${project.basedir}/../../</outputDirectory>
                     <finalName>Master</finalName>
                 </configuration>

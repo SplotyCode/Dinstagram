@@ -70,6 +70,7 @@ public class Starter {
         MavenCli cli = new MavenCli();
         cli.doMain(new String[]{"clean", "package"}, new File(directory, "Master/").getAbsolutePath(), System.out, System.out);
 
+        executeProccess(directory, "java", "-jar", "Master.jar");
     }
 
     private Process executeProccess(File directory, String... commands) throws IOException {
