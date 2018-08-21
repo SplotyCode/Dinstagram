@@ -64,6 +64,7 @@ public class Starter {
         }
 
         mavenHelper.build("Master");
+        
         startMaster();
     }
 
@@ -72,6 +73,7 @@ public class Starter {
         master.waitFor();
         System.out.println("Master Process Down! Exiting with: " + master.exitValue() + " Restarting in 10s...");
         Thread.sleep(10 * 1000);
+        startMaster();
     }
 
     private Process executeProccess(File directory, String... commands) throws IOException {
