@@ -42,6 +42,7 @@ public class DatabaseConnection {
         user.read(document);
         return user;
     }
+
     public void newUser(Document name, Document password){
         Document document = new Document("name", name);
         Document document1 = new Document("password",password);
@@ -52,6 +53,7 @@ public class DatabaseConnection {
 
 
     }
+
     public void deleteUser(String... name){
         Document[] documents = new Document[name.length];
         for(int i =0; i<name.length; i++)
