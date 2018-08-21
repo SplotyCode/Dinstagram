@@ -36,6 +36,7 @@ public class DatabaseConnection {
 
         return user;
     }
+
     public UserObj getUserByName(String name){
         UserObj user = new UserObj();
         Document document = users.find(Filters.eq("name", name)).first();
@@ -43,31 +44,20 @@ public class DatabaseConnection {
         return user;
     }
 
-    public void newUser(Document name, Document password){
-        Document document = new Document("name", name);
-        Document document1 = new Document("password",password);
+    public void newUser(UserObj user){
+        Document document = new Document();
+        user.write(document);
         users.insertOne(document);
-        users.insertOne(document1);
-
-
-
-
     }
 
-    public void deleteUser(String... name){
-        Document[] documents = new Document[name.length];
-        for(int i =0; i<name.length; i++)
-            users.deleteOne(Document.parse(name[i]));
-
-
-
-
-
-
+    public void updateUser(UserObj user) {
+        Document document = new Document();
+        user.write(document);
+        users.replaceOne(Filters.eq("userId", user.getUserId()), document);
     }
 
-
-
-
-
+    public void deleteUser(UserObj user){
+        users.deleteOne(Filters.eq("userId", user.getUserId()));
+    }
+    
 }
