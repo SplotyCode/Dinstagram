@@ -59,5 +59,5 @@ public class DatabaseConnection {
     public void deleteUser(UserObj user){
         users.deleteOne(Filters.eq("userId", user.getUserId()));
     }
-    
+
 }
