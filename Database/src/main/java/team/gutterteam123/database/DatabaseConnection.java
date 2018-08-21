@@ -60,4 +60,12 @@ public class DatabaseConnection {
         users.deleteOne(Filters.eq("userId", user.getUserId()));
     }
 
+    public void deleteUsers(UserObj... user){
+        Bson[] filters = new Bson[user.length];
+        for (int i = 0; i < user.length; i++) {
+            filters[i] = Filters.eq("userId", user[i].getUserId());
+        }
+        users.deleteMany(Filters.or(filters));
+    }
+
 }
