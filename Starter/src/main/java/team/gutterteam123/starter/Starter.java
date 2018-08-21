@@ -25,8 +25,8 @@ public class Starter {
     public static void main(String[] args){
         try {
             new Starter(args);
-        } catch (IOException | GitAPIException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -39,12 +39,14 @@ public class Starter {
     @Parameter(name = "branch")
     public String branch = "master";
 
-    private Starter(String[] args) throws IOException, GitAPIException {
+    private File dinstagram = new File(System.getProperty("user.home"), "Dinstagram/");
+
+    private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
         new ArgumentBuilder().setInput(args).setObject(this).build();
 
         CredentialsProvider cp = new UsernamePasswordCredentialsProvider(gitUser, gitPass);
 
-        File directory = new File(System.getProperty("user.home") + "/Dinstagram/repo/");
+        File directory = new File(dinstagram, "repo/");
         if (!directory.exists()) {
             directory.mkdirs();
             System.out.println("Cloning from " + REMOTE + " to " + directory.getAbsolutePath());
@@ -70,7 +72,14 @@ public class Starter {
         MavenCli cli = new MavenCli();
         cli.doMain(new String[]{"clean", "package"}, new File(directory, "Master/").getAbsolutePath(), System.out, System.out);
 
-        executeProccess(directory, "java", "-jar", "Master.jar");
+        startMaster();
+    }
+
+    private void startMaster() throws IOException, InterruptedException {
+        master = executeProccess(dinstagram, "java", "-jar", "Master.jar");
+        master.waitFor();
+        System.out.println("Master Process Down! Exiting with: " + master.exitValue() + " Restarting in 10s...");
+        Thread.sleep(10 * 1000);
     }
 
     private Process executeProccess(File directory, String... commands) throws IOException {
