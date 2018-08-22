@@ -42,6 +42,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     @Override
     public void run() {
         try {
+            System.out.println("Starting " + getDisplayName() + " under port " + port);
             bossGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
             workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
             ServerBootstrap bootstrap = new ServerBootstrap()

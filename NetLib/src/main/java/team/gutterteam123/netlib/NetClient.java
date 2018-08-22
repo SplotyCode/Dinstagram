@@ -51,7 +51,6 @@ public abstract class NetClient<P extends Packet> extends Thread {
     @Override
     public void run() {
         workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
-
         try {
             Bootstrap bootstrap = new Bootstrap()
                     .group(workerGroup)
