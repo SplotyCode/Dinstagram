@@ -16,7 +16,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>Starterc</finalName>
+                    <finalName>Starter</finalName>
                     <outputDirectory>${project.basedir}/../../</outputDirectory>
                     <archive>
                         <manifest>
@@ -26,6 +26,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
