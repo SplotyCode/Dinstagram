@@ -68,7 +68,7 @@ public class Starter {
         
         new MasterProcess().start();
         if (config) {
-            new ConfigProcess().start();
+           // new ConfigProcess().start();
         }
         configClient.setOnConfigChange(s -> {
             System.out.println("Config Updated!");

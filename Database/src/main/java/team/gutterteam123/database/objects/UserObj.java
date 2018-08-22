@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.bson.Document;
 import team.gutterteam123.database.DatabaseObj;
 
+import java.util.Arrays;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -33,7 +34,7 @@ public class UserObj implements DatabaseObj {
         followerInt = document.getLong("followerInt");
         followingInt = document.getLong("followingInt");
         postsInt = document.getLong("postsInt");
-        lastPost = document.getLong("lastPosts");
+        lastPost = document.getLong("lastPost");
         posts = (Set<Long>) document.get("posts", Set.class);
 
     }
@@ -42,7 +43,7 @@ public class UserObj implements DatabaseObj {
     public void write(Document document) {
         document.put("name", name);
         document.put("userId", userId);
-        document.put("following",following);
+        document.put("following", following);
         document.put("follower", follower);
         document.put("followerInt", followerInt);
         document.put("followingInt", followingInt);
@@ -51,7 +52,26 @@ public class UserObj implements DatabaseObj {
         document.put("posts", posts);
 
 
+    }
+    public enum AccessRule {
+        NAME("name"),PASSWORD("password"),USERID("userId"),FOLLOWING("following"),FOLLOWER("follower"),FOLLOWERINT("followerInt"),FOLLOWINGINT("followingInt"),POSTSINT("postsInt"),LASTPOST("lastPost"),POSTS("posts"),ALL("");
+        @Getter
+        protected final String field;
 
+        AccessRule(String field) {
+            this.field = field;
+        }
+        public String[] toArray(AccessRule... rules){
+            String[] list = new String[rules.length];
+            for (int i = 0; i < list.length; i++){
+                list[i] = rules[i].field;
+            }
+            return list;
+        }
+        public boolean ContainsAll(AccessRule... rules){
+            return Arrays.asList(rules).contains(ALL);
+        }
     }
 
 }
+

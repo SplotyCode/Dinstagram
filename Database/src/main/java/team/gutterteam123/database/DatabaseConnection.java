@@ -6,14 +6,11 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import lombok.Getter;
-import org.bson.BsonArray;
-import org.bson.BsonDocument;
 import org.bson.Document;
-import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
 import team.gutterteam123.database.objects.UserObj;
 
-import java.util.ArrayList;
+
 
 
 public class DatabaseConnection {
@@ -66,6 +63,10 @@ public class DatabaseConnection {
             filters[i] = Filters.eq("userId", user[i].getUserId());
         }
         users.deleteMany(Filters.or(filters));
+    }
+    public String getNameById(long id){
+        UserObj user = getUserById(id);
+        return user.getName();
     }
 
 }
