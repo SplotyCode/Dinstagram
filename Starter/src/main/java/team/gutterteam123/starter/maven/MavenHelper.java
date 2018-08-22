@@ -22,7 +22,10 @@ public class MavenHelper {
     public void install(String name) {
         if (!name.endsWith("/"))
             name += '/';
-        cli.doMain(new String[]{"clean", "install"}, new File(repo, name).getAbsolutePath(), System.out, System.err);
+        install(new File(repo, name));
+    }
 
+    public void install(File file) {
+        cli.doMain(new String[]{"clean", "install"}, file.getAbsolutePath(), System.out, System.err);
     }
 }

@@ -78,6 +78,7 @@ public class Starter {
 
     private void buildMaven() {
         System.out.println("Installing BaseLib, Database and NetLib");
+        mavenHelper.install(FileConstants.getREPO());
         mavenHelper.install("BaseLib");
         mavenHelper.install("NetLib");
         mavenHelper.install("Database");
