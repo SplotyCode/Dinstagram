@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
 import team.gutterteam123.database.DatabaseObj;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;

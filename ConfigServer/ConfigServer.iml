@@ -11,6 +11,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="NetLib" />
     <orderEntry type="library" name="Maven: io.netty:netty-all:4.1.28.Final" level="project" />
+    <orderEntry type="module" module-name="NetLib" />
+    <orderEntry type="library" name="Maven: io.netty:netty-all:4.1.28.Final" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
     <orderEntry type="module" module-name="BaseLib" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
