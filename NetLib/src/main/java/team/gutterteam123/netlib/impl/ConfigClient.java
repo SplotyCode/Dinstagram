@@ -48,7 +48,7 @@ public class ConfigClient extends NetClient {
 
     @Override
     protected String getDisplayName() {
-        return "Config";
+        return "Config Client";
     }
 
     public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {

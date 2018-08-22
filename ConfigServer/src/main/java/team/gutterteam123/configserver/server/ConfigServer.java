@@ -33,6 +33,6 @@ public class ConfigServer extends NetServer<SerializedPacket> {
 
     @Override
     protected String getDisplayName() {
-        return "Config";
+        return "Config Server";
     }
 }
