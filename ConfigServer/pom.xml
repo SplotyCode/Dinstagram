@@ -14,22 +14,10 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>team.gutterteam123.configserver.Main</mainClass>
-                        </manifest>
-                    </archive>
-                    <outputDirectory>${project.basedir}/../../</outputDirectory>
-                    <finalName>ConfigServer</finalName>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
+                    <finalName>ConfigServer</finalName>
+                    <outputDirectory>${project.basedir}/../../</outputDirectory>
                     <archive>
                         <manifest>
                             <mainClass>team.gutterteam123.configserver.Main</mainClass>
