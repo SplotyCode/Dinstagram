@@ -1,26 +1,23 @@
 package team.gutterteam123.starter;
 
-import org.apache.maven.cli.MavenCli;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.PullResult;
+import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
-import team.gutterteam123.baselib.OperatingSystem;
+import team.gutterteam123.baselib.FileConstants;
+import team.gutterteam123.baselib.PortConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
+import team.gutterteam123.netlib.impl.ConfigClient;
 import team.gutterteam123.starter.git.GitHelper;
 import team.gutterteam123.starter.maven.MavenHelper;
+import team.gutterteam123.starter.process.ConfigProcess;
+import team.gutterteam123.starter.process.MasterProcess;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.net.InetSocketAddress;
 
 public class Starter {
-
-    Process master;
 
     public static void main(String[] args){
         try {
@@ -45,46 +42,38 @@ public class Starter {
     @Parameter(name = "configserver", needed = true)
     public String configServer;
 
-    private File dinstagram = new File(System.getProperty("user.home"), "Dinstagram/");
-    private File repo = new File(dinstagram, "repo/");
-
     private GitHelper gitHelper = new GitHelper();
-    private MavenHelper mavenHelper = new MavenHelper(repo);
+    private MavenHelper mavenHelper = new MavenHelper(FileConstants.getRepo());
+    private ConfigClient configClient = new ConfigClient(new InetSocketAddress(configServer, PortConstants.getCONFIG_DOWNLOAD()));
 
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
         new ArgumentBuilder().setInput(args).setObject(this).build();
 
         CredentialsProvider cp = new UsernamePasswordCredentialsProvider(gitUser, gitPass);
 
-        if (!repo.exists()) {
-            repo.mkdirs();
-            gitHelper.gitClone(repo);
+        if (!FileConstants.getRepo().exists()) {
+            FileConstants.getRepo().mkdirs();
+            gitHelper.gitClone(FileConstants.getRepo());
         } else {
-            gitHelper.gitPull(repo, branch, cp);
+            MergeResult.MergeStatus status = gitHelper.gitPull(FileConstants.getRepo(), branch, cp);
+            if (status != MergeResult.MergeStatus.ALREADY_UP_TO_DATE) {
+                System.out.println("Building jar for Master and ConfigServer!");
+                mavenHelper.build("Master");
+                mavenHelper.build("ConfigServer");
+                System.out.println("Finished Building 2 Files!");
+            } else {
+                System.out.println("Building skipped current jars are up-to-date");
+            }
         }
-
-        mavenHelper.build("Master");
         
-        startMaster();
-    }
-
-    private void startMaster() throws IOException, InterruptedException {
-        master = executeProccess(dinstagram, "java", "-jar", "Master.jar");
-        master.waitFor();
-        System.out.println("Master Process Down! Exiting with: " + master.exitValue() + " Restarting in 10s...");
-        Thread.sleep(10 * 1000);
-        startMaster();
-    }
-
-    private Process executeProccess(File directory, String... commands) throws IOException {
-        List<String> cmds = new ArrayList<>();
-        if (OperatingSystem.current() == OperatingSystem.WINDOWS)
-            cmds.add("cmd.exe");
-        cmds.addAll(Arrays.asList(commands));
-        return new ProcessBuilder(commands).
-                inheritIO().
-                directory(directory).
-                start();
+        new MasterProcess().start();
+        if (config) {
+            new ConfigProcess().start();
+        }
+        configClient.setOnConfigChange(s -> {
+            System.out.println("Config Updated!");
+        });
+        configClient.start();
     }
 
 

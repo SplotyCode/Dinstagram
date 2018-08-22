@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import team.gutterteam123.baselib.FileConstants;
 import team.gutterteam123.netlib.NetClient;
 import team.gutterteam123.netlib.Registrys;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;
@@ -28,11 +29,8 @@ import java.util.function.Consumer;
 
 public class ConfigClient extends NetClient {
 
-    @Getter private File config;
-
-    public ConfigClient(InetSocketAddress address, File config) {
+    public ConfigClient(InetSocketAddress address) {
         super(address);
-        this.config = config;
     }
 
     @Override protected void onClose(Future future) {}
@@ -58,8 +56,8 @@ public class ConfigClient extends NetClient {
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
             String hash = "";
-            if (config.exists()) {
-                FileInputStream fis = new FileInputStream(config);
+            if (FileConstants.getConfig().exists()) {
+                FileInputStream fis = new FileInputStream(FileConstants.getConfig());
                 hash = DigestUtils.sha1Hex(fis);
                 fis.close();
             }
@@ -71,7 +69,7 @@ public class ConfigClient extends NetClient {
             if (packet instanceof ConfigUpdate) {
                 ConfigUpdate update = (ConfigUpdate) packet;
                 onConfigChange.accept(update.getConfig());
-                FileUtils.write(config, update.getConfig(), Charset.forName("Utf-8"));
+                FileUtils.write(FileConstants.getConfig(), update.getConfig(), Charset.forName("Utf-8"));
             } else {
                 throw new UnsupportedPacketException(packet.getClass().getSimpleName() + " is not supported!");
             }

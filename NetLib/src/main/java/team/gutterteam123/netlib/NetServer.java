@@ -15,10 +15,6 @@ import sun.misc.ThreadGroupUtils;
 import team.gutterteam123.baselib.util.ThreadUtil;
 import team.gutterteam123.netlib.packetbase.Packet;
 
-import java.util.InvalidPropertiesFormatException;
-import java.util.concurrent.Future;
-
-@RequiredArgsConstructor
 public abstract class NetServer<P extends Packet> extends Thread {
 
     private EventLoopGroup bossGroup, workerGroup;

@@ -1,6 +1,7 @@
 package team.gutterteam123.starter.git;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
@@ -24,7 +25,7 @@ public class GitHelper {
         System.out.println("Cloning Done!");
     }
 
-    public void gitPull(File directory, String branch, CredentialsProvider cp) throws GitAPIException, IOException {
+    public MergeResult.MergeStatus gitPull(File directory, String branch, CredentialsProvider cp) throws GitAPIException, IOException {
         System.out.println("Pulling From " + REMOTE);
         try (Git git = Git.open(directory)) {
             PullResult result = git.pull()
@@ -33,6 +34,7 @@ public class GitHelper {
                     .call();
             System.out.println("Fetch Message: " + result.getFetchResult().getMessages());
             System.out.println("Merge Status: " + result.getMergeResult().getMergeStatus());
+            return result.getMergeResult().getMergeStatus();
         }
     }
 }
