@@ -20,7 +20,7 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
     private Cache<String> hashCache = new Cache<String>(10 * 1000, this::getConfigHash);
     private Cache<String> configCache = new Cache<String>(10 * 1000, () -> {
         try {
-            return FileUtils.readFileToString(FileConstants.getConfig(), Charset.forName("Utf-8"));
+            return FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,8 +42,8 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
 
     private String getConfigHash() {
         try {
-            if (FileConstants.getConfigServer().exists()) {
-                FileInputStream fis = new FileInputStream(FileConstants.getConfigServer());
+            if (FileConstants.getCONFIG_SERVER().exists()) {
+                FileInputStream fis = new FileInputStream(FileConstants.getCONFIG_SERVER());
                 String hash = DigestUtils.sha1Hex(fis);
                 fis.close();
                 return hash;
