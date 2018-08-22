@@ -71,7 +71,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
 
             f.sync();
 
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -82,7 +82,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
                 currentReconnect *= reconnectMulti;
             }
             long reconnectDelay = Math.max(reconnectMax, currentReconnect);
-            System.out.println(getName() + " Client is down! Reconnecting in " + reconnectDelay / 1000 + "secs!");
+            System.out.println(getDisplayName() + " Client is down! Reconnecting in " + reconnectDelay / 1000 + "secs!");
             try {
                 Thread.sleep(reconnectDelay);
             } catch (InterruptedException e) {
