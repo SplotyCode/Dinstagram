@@ -54,6 +54,11 @@ public class ConfigClient extends NetClient {
     public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {
 
         @Override
+        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+            cause.printStackTrace();
+        }
+
+        @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
             String hash = "";
             if (FileConstants.getCONFIG().exists()) {
