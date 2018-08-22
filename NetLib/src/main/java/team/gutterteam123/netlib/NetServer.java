@@ -41,37 +41,37 @@ public abstract class NetServer<P extends Packet> extends Thread {
 
     @Override
     public void run() {
-        bossGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
-        workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
-        ServerBootstrap bootstrap = new ServerBootstrap()
-                .group(bossGroup, workerGroup)
-                .channel(epoll ? EpollServerSocketChannel.class : NioServerSocketChannel.class)
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel channel) throws Exception {
-                        ChannelPipeline pipeline = channel.pipeline();
-                        onChannelCreation(pipeline);
-                    }
-                })
-                .childOption(ChannelOption.SO_KEEPALIVE, keepAlive);
-        channel = bootstrap.bind(port).channel();
-        ChannelFuture future = channel.closeFuture().addListener((ChannelFutureListener) (channelFuture) -> {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
-        });
-        future.addListener((ChannelFutureListener) this::close);
         try {
+            bossGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
+            workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
+            ServerBootstrap bootstrap = new ServerBootstrap()
+                    .group(bossGroup, workerGroup)
+                    .channel(epoll ? EpollServerSocketChannel.class : NioServerSocketChannel.class)
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel channel) throws Exception {
+                            ChannelPipeline pipeline = channel.pipeline();
+                            onChannelCreation(pipeline);
+                        }
+                    })
+                    .childOption(ChannelOption.SO_KEEPALIVE, keepAlive);
+            channel = bootstrap.bind(port).channel();
+            ChannelFuture future = channel.closeFuture().addListener((ChannelFutureListener) (channelFuture) -> {
+                bossGroup.shutdownGracefully();
+                workerGroup.shutdownGracefully();
+            });
+            future.addListener((ChannelFutureListener) this::close);
             future.sync();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         if (autoReconnect) {
-            System.out.println(getName() + " Server is down! Restarting in 500ms");
+            System.out.println(getDisplayName() + " Server is down! Restarting in 500ms");
             ThreadUtil.sleep(500);
             run();
         } else {
-            System.out.println(getName() + " Server is down! No Reconnecting!");
+            System.out.println(getDisplayName() + " Server is down! No Reconnecting!");
         }
     }
 }
