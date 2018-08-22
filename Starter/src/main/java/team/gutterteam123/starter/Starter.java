@@ -1,9 +1,11 @@
 package team.gutterteam123.starter;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.json.JSONObject;
 import team.gutterteam123.baselib.FileConstants;
 import team.gutterteam123.baselib.PortConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
@@ -16,6 +18,7 @@ import team.gutterteam123.starter.process.MasterProcess;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
 
 public class Starter {
 
@@ -47,6 +50,7 @@ public class Starter {
     private ConfigClient configClient;
 
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
+        loadConfig();
         new ArgumentBuilder().setInput(args).setObject(this).build();
 
         configClient = new ConfigClient(new InetSocketAddress(configServer, PortConstants.getCONFIG_DOWNLOAD()));
@@ -74,6 +78,13 @@ public class Starter {
             System.out.println("Config Updated!");
         });
         configClient.start();
+    }
+
+    private void loadConfig() throws IOException {
+        if (FileConstants.getCONFIG().exists()) {
+            JSONObject object = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
+            branch = object.getString("branch");
+        }
     }
 
     private void buildMaven() {

@@ -76,7 +76,6 @@ public class ConfigClient extends NetClient {
             if (packet instanceof ConfigUpdate) {
                 ConfigUpdate update = (ConfigUpdate) packet;
                 onConfigChange.accept(update.getConfig());
-                System.out.println("client: " + update.getConfig());
                 FileUtils.write(FileConstants.getCONFIG(), update.getConfig(), Charset.forName("Utf-8"));
             } else {
                 throw new UnsupportedPacketException(packet.getClass().getSimpleName() + " is not supported!");
