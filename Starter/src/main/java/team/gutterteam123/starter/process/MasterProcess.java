@@ -12,6 +12,6 @@ public class MasterProcess extends ProcessThread {
 
     @Override
     protected void startProcess() throws IOException {
-        executeProccess(FileConstants.getDinstagram(), "java", "-jar", "Master.jar");
+        executeProccess(FileConstants.getDINSTAGRAM(), "java", "-jar", "Master.jar");
     }
 }

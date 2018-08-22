@@ -12,6 +12,6 @@ public class ConfigProcess extends ProcessThread {
 
     @Override
     protected void startProcess() throws IOException {
-        executeProccess(FileConstants.getDinstagram(), "java", "-jar", "ConfigServer.jar");
+        executeProccess(FileConstants.getDINSTAGRAM(), "java", "-jar", "ConfigServer.jar");
     }
 }

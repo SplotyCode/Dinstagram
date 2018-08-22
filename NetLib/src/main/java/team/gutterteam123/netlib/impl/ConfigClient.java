@@ -56,8 +56,8 @@ public class ConfigClient extends NetClient {
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
             String hash = "";
-            if (FileConstants.getConfig().exists()) {
-                FileInputStream fis = new FileInputStream(FileConstants.getConfig());
+            if (FileConstants.getCONFIG().exists()) {
+                FileInputStream fis = new FileInputStream(FileConstants.getCONFIG());
                 hash = DigestUtils.sha1Hex(fis);
                 fis.close();
             }
@@ -69,7 +69,7 @@ public class ConfigClient extends NetClient {
             if (packet instanceof ConfigUpdate) {
                 ConfigUpdate update = (ConfigUpdate) packet;
                 onConfigChange.accept(update.getConfig());
-                FileUtils.write(FileConstants.getConfig(), update.getConfig(), Charset.forName("Utf-8"));
+                FileUtils.write(FileConstants.getCONFIG(), update.getConfig(), Charset.forName("Utf-8"));
             } else {
                 throw new UnsupportedPacketException(packet.getClass().getSimpleName() + " is not supported!");
             }

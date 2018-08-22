@@ -14,8 +14,8 @@ public class MavenHelper {
     }
 
     public void build(String name) {
-        if (name.endsWith("/"))
+        if (!name.endsWith("/"))
             name += '/';
-        cli.doMain(new String[]{"clean", "package"}, new File(repo, name).getAbsolutePath(), System.out, System.out);
+        cli.doMain(new String[]{"clean", "package"}, new File(repo, name).getAbsolutePath(), System.out, System.err);
     }
 }
