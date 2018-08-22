@@ -55,14 +55,16 @@ public abstract class NetServer<P extends Packet> extends Thread {
                             onChannelCreation(pipeline);
                         }
                     })
+                    .option(ChannelOption.SO_BACKLOG, 50)
                     .childOption(ChannelOption.SO_KEEPALIVE, keepAlive);
             channel = bootstrap.bind(port).sync().channel();
-            ChannelFuture future = channel.closeFuture().addListener((ChannelFutureListener) (channelFuture) -> {
+            ChannelFuture future = channel.closeFuture();
+            future.addListener((ChannelFutureListener) (channelFuture) -> {
                 bossGroup.shutdownGracefully();
                 workerGroup.shutdownGracefully();
             });
             future.addListener((ChannelFutureListener) this::close);
-            future.syncUninterruptibly();
+            future.sync();
         } catch (Exception e) {
             e.printStackTrace();
         }

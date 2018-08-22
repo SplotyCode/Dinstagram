@@ -45,18 +45,6 @@ public class ConfigClient extends NetClient {
         pipeline.addLast(new LengthFieldBasedFrameDecoder(Short.MAX_VALUE, 0, 4, 0, 4));
         pipeline.addLast(new SerializedPacketDecoder(Registrys.getInstance().getConfigOut()));
         pipeline.addLast(new ConfigHandler());
-        try {
-            System.out.println("Config Client Channel Active... sending Hash!");
-            String hash = "";
-            if (FileConstants.getCONFIG().exists()) {
-                FileInputStream fis = new FileInputStream(FileConstants.getCONFIG());
-                hash = DigestUtils.sha1Hex(fis);
-                fis.close();
-            }
-            pipeline.channel().writeAndFlush(new ConfigRequestUpdate(hash));
-        }catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     @Override
@@ -69,6 +57,18 @@ public class ConfigClient extends NetClient {
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
             cause.printStackTrace();
+        }
+
+        @Override
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("Config Client Channel Active... sending Hash!");
+            String hash = "";
+            if (FileConstants.getCONFIG().exists()) {
+                FileInputStream fis = new FileInputStream(FileConstants.getCONFIG());
+                hash = DigestUtils.sha1Hex(fis);
+                fis.close();
+            }
+            ctx.channel().writeAndFlush(new ConfigRequestUpdate(hash));
         }
 
         @Override
