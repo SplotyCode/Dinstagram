@@ -30,10 +30,10 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, SerializedPacket packet) throws Exception {
-        System.out.println("Reading " + packet.getClass().getSimpleName());
         if (packet instanceof ConfigRequestUpdate) {
             ConfigRequestUpdate request = (ConfigRequestUpdate) packet;
             if (request.getHash().isEmpty() || !request.getHash().equals(hashCache.get())) {
+                System.out.println("Sending " + configCache.get());
                 ctx.channel().writeAndFlush(new ConfigUpdate(configCache.get()), ctx.voidPromise());
             }
         } else {
