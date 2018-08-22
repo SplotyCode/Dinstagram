@@ -43,7 +43,7 @@ public class ConfigClient extends NetClient {
         pipeline.addLast(new SerializedPacketEncoder(Registrys.getInstance().getConfigIn()));
         pipeline.addLast(new LengthFieldBasedFrameDecoder(Short.MAX_VALUE, 0, 4, 0, 4));
         pipeline.addLast(new SerializedPacketDecoder(Registrys.getInstance().getConfigOut()));
-
+        pipeline.addLast(new ConfigHandler());
     }
 
     @Override
