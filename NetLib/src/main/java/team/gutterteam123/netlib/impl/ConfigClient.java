@@ -60,6 +60,7 @@ public class ConfigClient extends NetClient {
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("Config Client Channel Active... sending Hash!");
             String hash = "";
             if (FileConstants.getCONFIG().exists()) {
                 FileInputStream fis = new FileInputStream(FileConstants.getCONFIG());
