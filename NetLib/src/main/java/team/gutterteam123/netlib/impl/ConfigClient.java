@@ -23,6 +23,7 @@ import team.gutterteam123.netlib.packets.ConfigUpdate;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.util.function.Consumer;
@@ -44,6 +45,18 @@ public class ConfigClient extends NetClient {
         pipeline.addLast(new LengthFieldBasedFrameDecoder(Short.MAX_VALUE, 0, 4, 0, 4));
         pipeline.addLast(new SerializedPacketDecoder(Registrys.getInstance().getConfigOut()));
         pipeline.addLast(new ConfigHandler());
+        try {
+            System.out.println("Config Client Channel Active... sending Hash!");
+            String hash = "";
+            if (FileConstants.getCONFIG().exists()) {
+                FileInputStream fis = new FileInputStream(FileConstants.getCONFIG());
+                hash = DigestUtils.sha1Hex(fis);
+                fis.close();
+            }
+            pipeline.channel().writeAndFlush(new ConfigRequestUpdate(hash));
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
