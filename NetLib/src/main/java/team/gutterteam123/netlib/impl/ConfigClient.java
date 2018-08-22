@@ -72,18 +72,6 @@ public class ConfigClient extends NetClient {
         }
 
         @Override
-        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            System.out.println("Config Client Channel Active... sending Hash!");
-            String hash = "";
-            if (FileConstants.getCONFIG().exists()) {
-                FileInputStream fis = new FileInputStream(FileConstants.getCONFIG());
-                hash = DigestUtils.sha1Hex(fis);
-                fis.close();
-            }
-            ctx.channel().writeAndFlush(new ConfigRequestUpdate(hash), ctx.voidPromise());
-        }
-
-        @Override
         protected void channelRead0(ChannelHandlerContext channelHandlerContext, SerializedPacket packet) throws Exception {
             if (packet instanceof ConfigUpdate) {
                 ConfigUpdate update = (ConfigUpdate) packet;
