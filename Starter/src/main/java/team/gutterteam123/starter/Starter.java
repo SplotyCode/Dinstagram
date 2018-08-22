@@ -77,6 +77,10 @@ public class Starter {
     }
 
     private void buildMaven() {
+        System.out.println("Installing BaseLib, Database and NetLib");
+        mavenHelper.install("BaseLib");
+        mavenHelper.install("NetLib");
+        mavenHelper.install("Database");
         System.out.println("Building jar for Master and ConfigServer!");
         mavenHelper.build("Master");
         mavenHelper.build("ConfigServer");

@@ -18,4 +18,11 @@ public class MavenHelper {
             name += '/';
         cli.doMain(new String[]{"clean", "package"}, new File(repo, name).getAbsolutePath(), System.out, System.err);
     }
+
+    public void install(String name) {
+        if (!name.endsWith("/"))
+            name += '/';
+        cli.doMain(new String[]{"clean", "install"}, new File(repo, name).getAbsolutePath(), System.out, System.err);
+
+    }
 }

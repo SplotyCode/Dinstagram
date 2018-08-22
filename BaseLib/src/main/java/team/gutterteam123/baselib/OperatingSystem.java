@@ -6,7 +6,7 @@ public enum OperatingSystem {
     LINUX;
 
     public static OperatingSystem current() {
-        String os = System.getProperty("os.name");
+        String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win")) return WINDOWS;
         return LINUX;
     }
