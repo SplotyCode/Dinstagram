@@ -26,6 +26,7 @@
         <module>NetLib</module>
         <module>BaseLib</module>
         <module>Master</module>
+        <module>ConfigServer</module>
     </modules>
 
     <dependencies>

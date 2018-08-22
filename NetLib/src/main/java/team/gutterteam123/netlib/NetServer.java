@@ -19,14 +19,14 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.concurrent.Future;
 
 @RequiredArgsConstructor
-public abstract class NetServer<P extends Packet> {
+public abstract class NetServer<P extends Packet> extends Thread {
 
     private EventLoopGroup bossGroup, workerGroup;
     private Channel channel;
 
     protected abstract void close(ChannelFuture future);
     protected abstract void onChannelCreation(ChannelPipeline pipeline);
-    protected abstract String getName();
+    protected abstract String getDisplayName();
 
     protected int port;
     protected boolean epoll;
@@ -43,7 +43,8 @@ public abstract class NetServer<P extends Packet> {
     @Getter @Setter protected boolean keepAlive = true;
     @Getter @Setter protected boolean autoReconnect = true;
 
-    public void startServer() {
+    @Override
+    public void run() {
         bossGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
         workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap()
@@ -63,11 +64,16 @@ public abstract class NetServer<P extends Packet> {
             workerGroup.shutdownGracefully();
         });
         future.addListener((ChannelFutureListener) this::close);
+        try {
+            future.sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if (autoReconnect) {
             System.out.println(getName() + " Server is down! Restarting in 500ms");
             ThreadUtil.sleep(500);
-            startServer();
+            run();
         } else {
             System.out.println(getName() + " Server is down! No Reconnecting!");
         }

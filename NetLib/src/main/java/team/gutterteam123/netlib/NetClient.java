@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
-public abstract class NetClient<P extends Packet> {
+public abstract class NetClient<P extends Packet> extends Thread {
     
     protected InetSocketAddress address;
     protected boolean epoll;
@@ -46,9 +46,10 @@ public abstract class NetClient<P extends Packet> {
 
     protected abstract void onClose(Future future);
     protected abstract void onChannelCreation(ChannelPipeline pipeline);
-    protected abstract String getName();
+    protected abstract String getDisplayName();
 
-    public void startServer() {
+    @Override
+    public void run() {
         workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
 
         try {
@@ -67,6 +68,9 @@ public abstract class NetClient<P extends Packet> {
             channel = bootstrap.connect(address).sync().channel();
             ChannelFuture f = channel.closeFuture().addListener(future -> workerGroup.shutdownGracefully());
             f.addListener(this::onClose);
+
+            f.sync();
+
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
@@ -84,7 +88,7 @@ public abstract class NetClient<P extends Packet> {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            startServer();
+            run();
         }
     }
 

@@ -78,7 +78,7 @@ public class ArgumentBuilder {
 
         for (Argument stillPresent : arguments) {
             if (stillPresent.getParameter().needed()) {
-                throw new BuilderException(stillPresent.getName() + " need to be specified");
+                throw new BuilderException(stillPresent.getName() + " needs to be specified");
             }
         }
     }
