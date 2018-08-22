@@ -2,6 +2,7 @@ package team.gutterteam123.configserver.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import lombok.Getter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import team.gutterteam123.baselib.FileConstants;
@@ -29,7 +30,6 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
         }
         return null;
     });
-
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, SerializedPacket packet) throws Exception {
