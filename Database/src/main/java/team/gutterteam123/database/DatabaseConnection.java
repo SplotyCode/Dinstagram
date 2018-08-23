@@ -8,6 +8,7 @@ import com.mongodb.client.model.Filters;
 import lombok.Getter;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import team.gutterteam123.database.objects.ImageObj;
 import team.gutterteam123.database.objects.UserObj;
 
 
@@ -50,23 +51,27 @@ public class DatabaseConnection {
     public void updateUser(UserObj user) {
         Document document = new Document();
         user.write(document);
-        users.replaceOne(Filters.eq("userId", user.getUserId()), document);
+        users.replaceOne(Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField()), document);
     }
 
     public void deleteUser(UserObj user){
-        users.deleteOne(Filters.eq("userId", user.getUserId()));
+        users.deleteOne(Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField()));
     }
 
     public void deleteUsers(UserObj... user){
         Bson[] filters = new Bson[user.length];
         for (int i = 0; i < user.length; i++) {
-            filters[i] = Filters.eq("userId", user[i].getUserId());
+            filters[i] = Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField());
         }
         users.deleteMany(Filters.or(filters));
     }
     public String getNameById(long id){
         UserObj user = getUserById(id);
-        return user.getName();
+        return UserObj.AccessRuleString.NAME.getField();
+    }
+    public long getLikesOfImage(){
+        return ImageObj.AccessRuleInt.LIKESINT.getField();
+
     }
 
 }

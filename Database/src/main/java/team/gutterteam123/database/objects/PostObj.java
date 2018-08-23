@@ -17,17 +17,18 @@ public class PostObj implements DatabaseObj {
     protected String messages;
     protected long imageId;
     protected long likesInt;
-    protected Set<Long> idOfLikers;
+    protected static Set<Integer> idOfLikers;
     protected long commentsInt;
-    protected List<String> comment, authorOfComment;
+    protected static List<String> comment;
+    protected static List<String> authorOfComment;
 
     @Override
     public void read(Document document) {
         messages = document.getString("messages");
-        imageId = document.getLong("imageId");
-        likesInt = document.getLong("likesInt");
-        idOfLikers = (Set<Long>) document.get("idOfLikers");
-        commentsInt = document.getLong("commentsInt");
+        imageId = document.getInteger("imageId");
+        likesInt = document.getInteger("likesInt");
+        idOfLikers = (Set<Integer>) document.get("idOfLikers");
+        commentsInt = document.getInteger("commentsInt");
         comment = (List<String>)document.get("comment");
         comment = (List<String>)document.get("authorOfComment");
     }
@@ -43,24 +44,74 @@ public class PostObj implements DatabaseObj {
         document.put("authorOfComment",authorOfComment);
 
     }
-    public enum AccessRule {
-        MESSAGES("messages"),IMAGEID("imageId"),LIKESINT("likesInt"),IDOFLIKERS("following"),COMMENTSINT("commentsInt"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),ALL("");
+    public enum AccessRuleString {
+        MESSAGES("messages"),IDOFLIKERS("following"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),ALL("");
         @Getter
-        private final String field;
+        protected final String field;
 
-        AccessRule(String field) {
+        AccessRuleString(String field) {
             this.field = field;
         }
-        public String[] toArray(AccessRule... rules){
+        public String[] toArray(AccessRuleString... rules){
             String[] list = new String[rules.length];
             for (int i = 0; i < list.length; i++){
                 list[i] = rules[i].field;
             }
             return list;
         }
-        public boolean ContainsAll(AccessRule... rules){
+        public boolean ContainsAll(AccessRuleString... rules){
             return Arrays.asList(rules).contains(ALL);
         }
+    }
+    public enum AccessRuleInt{
+        IMAGEID(0),LIKESINT(0),COMMENTSINT(0),ALL(0);
+        @Getter
+        protected final int field;
+
+        AccessRuleInt(int field){
+            this.field = field;
+
+        }
+        public Integer[] toArray(AccessRuleInt... rules){
+            Integer[] list = new Integer[rules.length];
+            for (int i = 0;i< list.length; i++){
+                list[i] = rules[i].field;
+            }
+            return list;
+
+        }
+        public boolean ContainsAll(AccessRuleInt... rules){
+            return Arrays.asList(rules).contains(ALL);
+        }
+
+    }
+    public enum AccessRuleSetInt{
+        IDOFLIKERS(idOfLikers),ALL(null);
+        @Getter
+        protected final Set<Integer> field;
+
+        AccessRuleSetInt(Set<Integer> field){
+            this.field = field;
+        }
+        public boolean ContainsAll(ImageObj.AccessRuleSetInt rules){
+            return field.contains(ALL);
+        }
+    }
+    public enum AccessRuleSetString{
+        COMMENT(comment),AUTHOROFCOMMENT(authorOfComment),ALL(null);
+
+        @Getter
+        protected final List<String> field;
+
+        AccessRuleSetString(List<String> field){
+            this.field = field;
+        }
+
+
+        public boolean ContainsAll(){
+            return field.contains(ALL);
+        }
+
     }
 
 }
