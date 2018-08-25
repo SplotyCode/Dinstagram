@@ -1,5 +1,6 @@
 package team.gutterteam123.starter;
 
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -21,6 +22,8 @@ import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
 public class Starter {
+
+    @Getter private static Starter instance;
 
     public static void main(String[] args){
         try {
@@ -45,11 +48,15 @@ public class Starter {
     @Parameter(name = "configserver", needed = true)
     public String configServer;
 
+    @Parameter(name = "servergroup", needed = true)
+    public String serverGroup;
+
     private GitHelper gitHelper = new GitHelper();
     private MavenHelper mavenHelper = new MavenHelper(FileConstants.getREPO());
     private ConfigClient configClient;
 
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
+        instance = this;
         loadConfig();
         new ArgumentBuilder().setInput(args).setObject(this).build();
 
