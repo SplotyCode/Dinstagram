@@ -65,9 +65,9 @@ public abstract class NetClient<P extends Packet> extends Thread {
                     });
 
             channel = bootstrap.connect(address).sync().channel();
-            ChannelFuture f = channel.closeFuture().addListener(future -> workerGroup.shutdownGracefully());
+            ChannelFuture f = channel.closeFuture();
+            f.addListener(future -> workerGroup.shutdownGracefully());
             f.addListener(this::onClose);
-
             f.sync();
 
         } catch (Exception ex) {

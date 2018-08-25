@@ -21,10 +21,7 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
     private Cache<String> hashCache = new Cache<String>(10 * 1000, this::getConfigHash);
     private Cache<String> configCache = new Cache<String>(10 * 1000, () -> {
         try {
-            if (!FileConstants.getCONFIG().exists()) {
-                FileConstants.getCONFIG().createNewFile();
-            }
-            return FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8"));
+            return FileUtils.readFileToString(FileConstants.getCONFIG_SERVER(), Charset.forName("Utf-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,6 +33,7 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
         if (packet instanceof ConfigRequestUpdate) {
             ConfigRequestUpdate request = (ConfigRequestUpdate) packet;
             if (request.getHash().isEmpty() || !request.getHash().equals(hashCache.get())) {
+                System.out.println("Sending " + configCache.get());
                 ctx.channel().writeAndFlush(new ConfigUpdate(configCache.get()), ctx.voidPromise());
             }
         } else {
