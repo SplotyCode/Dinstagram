@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="gloabl.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+        .profile-image img {
+            display: block;
+            border-radius: 50%;
+        }
+        .profile-image {
+            float: left;
+        }
+        .photo {
+            clear: both;
+            background-color: black;
+            text-align: center;
+            margin: 2px;
+        }
+        .photo img {
+            max-width: 90%;
+            max-height: 120%;
+            min-height: 200px;
+            min-width: 200px;
+            transition: .5s ease;
+            opacity: 1;
+        }
+        .photo img:hover {
+            opacity: 0.3;
+        }
+        .profile-name {
+            line-height: 40px;
+            font-size: 20px;
+            margin: 0px;
+        }
+        .profile-name p {
+            margin: 0;
+            margin-left: 3.5%;
+        }
+        .post {
+            margin-top: 0;
+            margin-left: 1.8vw;
+        }
+        .header {
+            margin-bottom: 1.2%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="post">
+        <div class="header">
+            <div class="profile-image">
+                <img width="40px" src="img/profile_color.png" alt="Profile Photo: 'Name'">
+            </div>
+            <div class="profile-name">
+                <p>Name</p>
+            </div>
+        </div>
+        <div class="photo">
+            <img src="../../Testing/test_img.jpg" alt="Desceiption">
+        </div>
+        <div>
+            <a></a>
+        </div>
+        <div>
+            <span>Gefällt: Esa, Erik, Hurensohn und 4 Anderen(als links)</span>
+            <p>Exaple Description adjalkjd;lakdsjalkjds alkjdalks</p>
+        </div>
+    </div>
+    <div class="post">
+            <div class="header">
+                <div class="profile-image">
+                    <img width="40px" src="img/profile_color.png" alt="Profile Photo: 'Name'">
+                </div>
+                <div class="profile-name">
+                    <p>Name</p>
+                </div>
+            </div>
+            <div class="photo">
+                <img src="../../Testing/test_img.jpg" alt="Desceiption">
+            </div>
+            <div>
+                <a class="icon-like"></a>
+            </div>
+            <div>
+                <span>Gefällt: Esa, Erik, Hurensohn und 4 Anderen(als links)</span>
+                <p>Exaple Description adjalkjd;lakdsjalkjds alkjdalks</p>
+            </div>
+        </div>
+</body>
+</html>

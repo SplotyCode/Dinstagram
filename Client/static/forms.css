@@ -1,0 +1,56 @@
+.button {
+    position: absolute;
+    background: transparent;
+    border: 1px solid #fff;
+    font-weight: 700;
+    font-family: sans-serif;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.button-normal {
+    width: 200px;
+    height: 40px;
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+.button::before {
+    content: "";
+    position: absolute;
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) skewX(-25deg);
+    z-index: -1;
+    transition: all 0.4s;
+}
+.button-normal::before {
+    height: 45px;
+    width: 0px;
+}
+.button:hover::before {
+    width: 240px;
+}
+.text-input {
+    color: #fff;
+    background: transparent;
+    transition: all 0.30s ease-in-out;
+    outline: none;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+    font-family: sans-serif;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+   
+  .text-input:focus, .button:hover {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+  .text-input:focus {
+    margin: 5px 1px 3px 0px;
+  }
+
+

@@ -1,0 +1,62 @@
+<!-- 
+    Main Html Dinstagram Site.
+    Uses IFrames to load Sub Sites.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="gloabl.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            html, body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            footer {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                font-size: 32px;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                color: black;
+                background-color: whitesmoke;
+                text-align: center;
+                border-top-style: solid;
+                border-top-color: gray;
+                border-top-width: thin;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+            }
+            iframe {
+                position: fixed;
+                overflow-x: hidden;
+                overflow-y: visible;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        <script type="text/javascript">
+            function setUrl(url) {
+                console.log("Loading Page: " + url);
+                document.getElementById("content").src = url;
+            }
+        </script>
+    </head>
+    <body>
+        <iframe id="content" src="feed.html"></iframe>
+        <footer class="noselect" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+            <i onclick="setUrl('feed.html')" class="icon-feed"></i>
+            <i onclick="setUrl('search.html')" class="icon-search"></i>
+            <i class="icon-upload"></i>
+            <i onclick="setUrl('chats.html')" class="icon-chat notification" data-notification="4"></i>
+            <i onclick="setUrl('profile.html')" class="icon-profile"></i>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="gloabl.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .chats {
+            margin-top: 5vh;
+            margin-left: 2%;
+            width: 96%;
+            margin-right: 2%;
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+        }
+        .chat {
+            display: flex;
+            flex-direction: row;
+            width: 96vw;
+            height: 8vh;
+            border-bottom: thin solid #F0F0F1;
+            margin-bottom: 2vh;
+        }
+        .chat:last-child {
+            border-bottom: none;
+        }
+        .thumpnail img {
+            height: 8vh;
+        }
+        .groupname {
+            vertical-align: middle;
+            margin-left: 1.3vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .bubble {
+            background-color: #02D56A;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            width: 4vh;
+            height: 4vh;
+            margin-left: auto;
+        }
+        .groupData {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: 4vw;
+        }
+        .date {
+            color: #02D56A;
+        }
+    </style>
+    <script src="3party/jquery.js">console.log("Unable to Load JQuery!")</script>
+    <script>
+        Array.from(document.getElementsByClassName('bubble')).forEach(function (element) {
+            window.addEventListener('resize', update(element));
+            window.addEventListener('load', update(element))
+        });
+        function update(buble) {
+            var height = document.getElementById('date').height;
+
+            buble.height = height;
+            buble.width = height;
+
+            console.log("Updated hight from Bubmle to: ");
+        }
+    </script>
+</head>
+
+<body>
+    <div class="chats">
+        <div class="chat">
+            <div class="thumpnail">
+                <img src="img/profile_color.png">
+            </div>
+            <div class="groupname">
+                <span class="bold">Name</span>
+                <span>Ben: Hey</span>
+            </div>
+            <div class="groupData">
+                <span id="date" class="date">Gestern</span>
+                <span class="bubble">4</span>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="thumpnail">
+                <img src="img/profile_color.png">
+            </div>
+            <div class="groupname">
+                <span class="bold">Name</span>
+                <span>Ben: Hey</span>
+            </div>
+            <div class="groupData">
+                <span id="date" class="date">Gestern</span>
+                <span class="bubble">4</span>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="thumpnail">
+                <img src="img/profile_color.png">
+            </div>
+            <div class="groupname">
+                <span class="bold">Name</span>
+                <span>Ben: Hey</span>
+            </div>
+            <div class="groupData">
+                <span id="date" class="date">Gestern</span>
+                <span class="bubble">4</span>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="thumpnail">
+                <img src="img/profile_color.png">
+            </div>
+            <div class="groupname">
+                <span class="bold">Name</span>
+                <span>Ben: Hey</span>
+            </div>
+            <div class="groupData">
+                <span id="date" class="date">Gestern</span>
+                <span class="bubble">4</span>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="thumpnail">
+                <img src="img/profile_color.png">
+            </div>
+            <div class="groupname">
+                <span class="bold">Name</span>
+                <span>Ben: Hey</span>
+            </div>
+            <div class="groupData">
+                <span id="date" class="date">Gestern</span>
+                <span class="bubble">4</span>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="thumpnail">
+                <img src="img/profile_color.png">
+            </div>
+            <div class="groupname">
+                <span class="bold">Name</span>
+                <span>Ben: Hey</span>
+            </div>
+            <div class="groupData">
+                <span id="date" class="date">Gestern</span>
+                <span class="bubble">4</span>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="thumpnail">
+                <img src="img/profile_color.png">
+            </div>
+            <div class="groupname">
+                <span class="bold">Name</span>
+                <span>Ben: Hey</span>
+            </div>
+            <div class="groupData">
+                <span id="date" class="date">Gestern</span>
+                <span class="bubble">4</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

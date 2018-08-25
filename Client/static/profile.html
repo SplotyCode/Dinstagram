@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="gloabl.css">
+    <link rel="stylesheet" type="text/css" href="modal.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .header {
+            text-align: center;
+            line-height: 1.8;
+            border-bottom: thin solid black;
+            margin-bottom: 12px;
+        }
+
+        .profile-image {
+            white-space: nowrap;
+            text-align: center;
+            width: 25vw;
+        }
+
+        .profile-image img {
+            border-radius: 50%;
+            width: 25vw;
+            vertical-align: middle;
+        }
+
+        .subscribe {
+            color: white;
+            background-color: #5395EB;
+            width: 13em;
+            border-radius: 4px;
+            height: 2em;
+        }
+
+        .bio {
+            clear: both;
+            margin-left: 18px;
+        }
+
+        .account-data {
+            margin-left: 2%;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .profile-stats {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+
+        .profile-stat {
+            margin: 2.5%;
+            text-align: center;
+        }
+
+        .galary {
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            margin: auto;
+        }
+
+        .photo {
+            max-width: 50%;
+            background-color: black;
+            min-height: 30%;
+            min-width: 30%;
+            white-space: nowrap;
+        }
+
+        .photo img {
+            max-width: 100%;
+            min-height: 100px;
+            min-width: 100px;
+            color: white;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+
+        .helper {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .wrapper {
+            text-align: center;
+        }
+        .profile-follorwers {
+            margin: auto auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <span class="bold">Name</span>
+    </div>
+    <div class="account-data">
+        <div class="profile-image">
+            <span class="helper"></span>
+            <img src="img/profile_color.png" id="profileImg" alt="Profile Photo: 'Name'">
+        </div>
+        <div class="profile-follorwers">
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <p class="bold">444</p>
+                    <p>Posts</p>
+                </div>
+                <div class="profile-stat">
+                    <p class="bold">444</p>
+                    <p>Followers</p>
+                </div>
+                <div class="profile-stat">
+                    <p class="bold">444</p>
+                    <p>Following</p>
+                </div>
+            </div>
+            <button class="subscribe">Subscribe</button>
+        </div>
+    </div>
+    <div class="bio">
+        <p>Here is my bio
+            <br> here also!!!</p>
+    </div>
+    <div class="wrapper">
+        <div class="galary">
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/index.png">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test3.jpeg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpgadsdsadsa" alt="Altertate Text">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/index.png">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test3.jpeg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test4.png">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test5.jpeg">
+            </div>
+            <div class="photo">
+                <span class="helper"></span>
+                <img src="../../Testing/test_img.jpg">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div id="profileModal" class="modal">
+        <span id="modalClose" class="modal-close">×</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    <script>
+        var modal = document.getElementById('profileModal');
+
+        var img = document.getElementById('profileImg');
+        var modalImg = document.getElementById("modalImage");
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+
+        document.getElementById("modalClose").onclick = function () {
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
