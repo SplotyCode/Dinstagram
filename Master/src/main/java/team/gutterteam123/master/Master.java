@@ -6,15 +6,12 @@ import org.apache.log4j.BasicConfigurator;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
-import team.gutterteam123.baselib.util.NetUtil;
+import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.database.DatabaseConnection;
 import team.gutterteam123.master.sync.Sync;
 
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.nio.charset.Charset;
 
 public class Master {
@@ -44,14 +41,12 @@ public class Master {
         BasicConfigurator.configure();
         new ArgumentBuilder().setObject(this).setInput(args).build();
 
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Master Stopping Thread"));
         sync = new Sync();
 
         config = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
 
         db = new DatabaseConnection(config.getString("mongo"));
-
-        System.out.println(NetUtil.getRemoteIp());
-
     }
 
     private void stop() {
