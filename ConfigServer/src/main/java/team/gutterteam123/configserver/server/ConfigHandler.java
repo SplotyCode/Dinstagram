@@ -32,7 +32,7 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
         if (packet instanceof ConfigRequestUpdate) {
             ConfigRequestUpdate request = (ConfigRequestUpdate) packet;
             if (request.getHash().isEmpty() || !request.getHash().equals(hashCache.get())) {
-                System.out.println("Sending " + configCache.get());
+                System.out.println("Uploading config to " + ctx.channel().remoteAddress().toString());
                 ctx.channel().writeAndFlush(new ConfigUpdate(configCache.get()), ctx.voidPromise());
             }
         } else {
