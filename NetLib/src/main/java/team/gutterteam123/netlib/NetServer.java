@@ -23,6 +23,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     private Channel channel;
 
     protected abstract void close(ChannelFuture future);
+    protected abstract void onStart(ChannelFuture future);
     protected abstract void onChannelCreation(ChannelPipeline pipeline);
     protected abstract String getDisplayName();
 
@@ -74,6 +75,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
                 workerGroup.shutdownGracefully();
             });
             future.addListener((ChannelFutureListener) this::close);
+            onStart(future);
             future.sync();
         } catch (Exception ex) {
             logger.error("Error in NetServer", ex);

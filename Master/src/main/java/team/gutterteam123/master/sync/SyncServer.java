@@ -24,6 +24,11 @@ public class SyncServer extends NetServer {
     @Override protected void close(ChannelFuture future) {}
 
     @Override
+    protected void onStart(ChannelFuture future) {
+        
+    }
+
+    @Override
     protected void onChannelCreation(ChannelPipeline pipeline) {
         pipeline.addLast(new LengthFieldPrepender(4));
         pipeline.addLast(new SerializedPacketEncoder(Registrys.getInstance().getMasterOut()));
