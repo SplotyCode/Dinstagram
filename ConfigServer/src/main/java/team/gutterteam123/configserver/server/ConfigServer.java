@@ -28,7 +28,7 @@ public class ConfigServer extends NetServer<SerializedPacket> {
         pipeline.addLast(new SerializedPacketEncoder(Registrys.getInstance().getConfigOut()));
         pipeline.addLast(new LengthFieldBasedFrameDecoder(Short.MAX_VALUE, 0, 4, 0, 4));
         pipeline.addLast(new SerializedPacketDecoder(Registrys.getInstance().getConfigIn()));
-        pipeline.addLast(new ConfigHandler());
+        pipeline.addLast(new ServerConfigHandler());
     }
 
     @Override

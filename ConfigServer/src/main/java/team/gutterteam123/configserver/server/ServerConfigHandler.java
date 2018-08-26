@@ -19,7 +19,7 @@ import java.nio.charset.Charset;
 
 public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {
 
-    final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
     private SimpleCache<String> hashCache = new SimpleCache<String>(10 * 1000, this::getConfigHash);
