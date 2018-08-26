@@ -43,7 +43,7 @@ public class Sync {
                     JSONArray roots = country.getJSONArray("roots");
                     for (int j = 0; j < roots.length(); j++) {
                         addresses.add(roots.getString(j));
-                        logger.info("Added Root " + roots.getString(j));
+                        logger.info("Added Root: " + roots.getString(j));
                     }
                     break;
                 }
@@ -56,13 +56,16 @@ public class Sync {
         currentBest = getBestRoot();
         logger.info("Best Root is {}", currentBest);
         if (currentBest.equals(NetUtil.getRemoteIp())) {
+            logger.info("Optimal Primary master is this machine! Starting Server...");
             server = new SyncServer();
             server.setStart(() -> {
+                logger.info("Sync Server is up! Starting Client...");
                 client = new SyncClient(currentBest);
                 client.start();
             });
             server.start();
         } else {
+            logger.info("Starting Sync Client...");
             client = new SyncClient(currentBest);
             client.start();
         }
@@ -70,23 +73,34 @@ public class Sync {
         TaskManager.getInstance().registerTask(new TimerTask(true, () -> {
             String best = getBestRoot();
             if (!best.equals(currentBest)) {
+                logger.info("Best Primary Master switched from {} to {}", currentBest, best);
                 if (currentBest.equals(NetUtil.getRemoteIp())) {
                     server.shutdown();
                 }
                 if (best.equals(NetUtil.getRemoteIp())) {
+                    logger.info("Optimal Primary master is this machine");
                     server = new SyncServer();
+                    server.setStart(() -> {
+                        client = new SyncClient(best);
+                        client.start();
+                    });
                     server.start();
+                } else {
+                    client = new SyncClient(best);
+                    client.start();
                 }
-                client = new SyncClient(best);
-                client.start();
+
                 currentBest = best;
 
                 addresses.sort(Comparator.comparingInt(String::hashCode));
                 for (String root : addresses) {
                     if (root.hashCode() > currentBest.hashCode() && isOnline(root)) {
+                        logger.info("Sending Destroy packet to {}", root);
                         new DestroyClient(root, best).start();
                     }
                 }
+            } else {
+                logger.info("Sync has not changed in the last {} seconds", TimeConstants.getSYNC_UPDATE() / 1000);
             }
         }, TimeConstants.getSYNC_UPDATE(), TimeConstants.getSYNC_UPDATE()));
     }

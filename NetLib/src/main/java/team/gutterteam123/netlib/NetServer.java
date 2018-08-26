@@ -91,6 +91,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     }
 
     public void shutdown() {
+        logger.info("Server {} is shutting down", getDisplayName());
         bossGroup.shutdownGracefully();
         workerGroup.shutdownGracefully();
     }
