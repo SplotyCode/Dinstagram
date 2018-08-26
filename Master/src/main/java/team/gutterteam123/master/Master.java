@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
+import team.gutterteam123.baselib.util.NetUtil;
 import team.gutterteam123.database.DatabaseConnection;
 
 import java.net.DatagramSocket;
@@ -43,10 +44,7 @@ public class Master {
 
         db = new DatabaseConnection(config.getString("mongo"));
 
-        try(final DatagramSocket socket = new DatagramSocket()){
-            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-            System.out.println(socket.getLocalAddress().getHostAddress());
-        }
+        System.out.println(NetUtil.getRemoteIp());
 
     }
 
