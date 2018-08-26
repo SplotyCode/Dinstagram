@@ -16,6 +16,7 @@ import team.gutterteam123.baselib.util.NetUtil;
 import team.gutterteam123.master.Master;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -97,7 +98,9 @@ public class Sync {
 
     private boolean isOnline(String host) {
         try {
-            new Socket(host, PortConstants.getMASTER_SYNC()).close();
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(host, PortConstants.getMASTER_SYNC()), 3000);
+            socket.close();
         } catch (IOException ex) {
             return false;
         }
