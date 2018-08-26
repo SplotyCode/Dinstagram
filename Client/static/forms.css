@@ -31,7 +31,7 @@
     width: 240px;
 }
 .text-input {
-    color: #fff;
+    color: black;
     background: transparent;
     transition: all 0.30s ease-in-out;
     outline: none;
