@@ -3,7 +3,6 @@ package team.gutterteam123.starter;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
@@ -87,9 +86,7 @@ public class Starter {
         if (config) {
             new ConfigProcess().start();
         }
-        configClient.setOnConfigChange(s -> {
-            logger.info("Config Updated!");
-        });
+        configClient.setOnConfigChange(s -> logger.info("Config Updated!"));
         configClient.start();
         configClient.join();
 

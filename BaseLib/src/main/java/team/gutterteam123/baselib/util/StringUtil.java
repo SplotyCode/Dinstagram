@@ -56,7 +56,7 @@ public final class StringUtil {
     }
 
     public static List<String> convertToList(String s, String split) {
-        List<String> founds = new ArrayList<>(Arrays.asList(s));
+        List<String> founds = new ArrayList<>(Collections.singletonList(s));
         founds.addAll(Arrays.asList(s.split(split)));
 
         for (String found : founds) {

@@ -9,11 +9,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.ThreadGroupUtils;
 import team.gutterteam123.baselib.util.ThreadUtil;
 import team.gutterteam123.netlib.packetbase.Packet;
 

@@ -1,6 +1,5 @@
 package team.gutterteam123.master.sync;
 
-import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,8 +10,6 @@ import team.gutterteam123.baselib.PortConstants;
 import team.gutterteam123.master.Master;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.ArrayList;

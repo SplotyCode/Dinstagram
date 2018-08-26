@@ -22,8 +22,8 @@ public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedP
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    private SimpleCache<String> hashCache = new SimpleCache<String>(10 * 1000, this::getConfigHash);
-    private SimpleCache<String> configCache = new SimpleCache<String>(10 * 1000, () -> {
+    private SimpleCache<String> hashCache = new SimpleCache<>(10 * 1000, this::getConfigHash);
+    private SimpleCache<String> configCache = new SimpleCache<>(10 * 1000, () -> {
         try {
             return FileUtils.readFileToString(FileConstants.getCONFIG_SERVER(), Charset.forName("Utf-8"));
         } catch (IOException ex) {
