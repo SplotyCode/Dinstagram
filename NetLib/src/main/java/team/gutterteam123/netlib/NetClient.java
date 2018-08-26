@@ -79,30 +79,26 @@ public abstract class NetClient<P extends Packet> extends Thread {
         } catch (Exception ex) {
             logger.error("Exception in Client", ex);
             if (autoReconnect) {
-                if (currentReconnect == -1) {
-                    currentReconnect = reconnectStart;
-                } else {
-                    currentReconnect *= reconnectMulti;
-                }
-                long reconnectDelay = Math.max(reconnectMax, currentReconnect);
-                logger.info(getDisplayName() + " Client is down! Reconnecting in {}secs!", reconnectDelay / 1000);
-                ThreadUtil.sleep(reconnectDelay);
-                run();
+                reconnect();
             }
             return;
         }
 
         if (autoReconnect && autoReconnectWithoutException) {
-            if (currentReconnect == -1) {
-                currentReconnect = reconnectStart;
-            } else {
-                currentReconnect *= reconnectMulti;
-            }
-            long reconnectDelay = Math.max(reconnectMax, currentReconnect);
-            logger.info(getDisplayName() + " Client is down! Reconnecting in {}secs!", reconnectDelay / 1000);
-            ThreadUtil.sleep(reconnectDelay);
-            run();
+            reconnect();
         }
+    }
+
+    private void reconnect() {
+        if (currentReconnect == -1) {
+            currentReconnect = reconnectStart;
+        } else {
+            currentReconnect *= reconnectMulti;
+        }
+        long reconnectDelay = Math.min(reconnectMax, currentReconnect);
+        logger.info(getDisplayName() + " Client is down! Reconnecting in {}secs!", reconnectDelay / 1000);
+        ThreadUtil.sleep(reconnectDelay);
+        run();
     }
 
     public void shutdown() {
