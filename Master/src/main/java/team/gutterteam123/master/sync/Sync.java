@@ -39,7 +39,10 @@ public class Sync {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject country = array.getJSONObject(i);
                 System.out.println("a " + country.toString());
-                if (country.getString("name").equals(Master.getInstance().servergroup)) {
+                if (country.
+                        getString("name").
+                        equals(Master.getInstance().
+                                servergroup)) {
                     JSONArray roots = country.getJSONArray("roots");
                     for (int j = 0; j < roots.length(); j++) {
                         addresses.add(roots.getString(j));
