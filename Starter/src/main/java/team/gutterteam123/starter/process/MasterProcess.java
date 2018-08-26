@@ -1,6 +1,7 @@
 package team.gutterteam123.starter.process;
 
 import team.gutterteam123.baselib.FileConstants;
+import team.gutterteam123.starter.Starter;
 
 import java.io.IOException;
 
@@ -12,6 +13,6 @@ public class MasterProcess extends ProcessThread {
 
     @Override
     protected void startProcess() throws IOException {
-        executeProccess(FileConstants.getDINSTAGRAM(), "java", "-jar", "Master.jar");
+        executeProccess(FileConstants.getDINSTAGRAM(), "java", "-jar", "Master.jar", "-servergroup", Starter.getInstance().serverGroup);
     }
 }
