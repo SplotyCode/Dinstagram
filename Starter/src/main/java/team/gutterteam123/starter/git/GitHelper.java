@@ -5,35 +5,39 @@ import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
 public class GitHelper {
 
+    Logger logger = LoggerFactory.getLogger(getClass());
+
 
     private static final String REMOTE = "https://github.com/SplotyCode/Dinstagram.git";
 
     public void gitClone(File directory) throws GitAPIException {
-        System.out.println("Cloning from " + REMOTE + " to " + directory.getAbsolutePath());
+        logger.info("Cloning from " + REMOTE + " to " + directory.getAbsolutePath());
         Git result = Git.cloneRepository()
                 .setURI(REMOTE)
                 .setDirectory(directory)
                 .setBranch("master")
                 .call();
         result.close();
-        System.out.println("Cloning Done!");
+        logger.info("Cloning Done!");
     }
 
     public MergeResult.MergeStatus gitPull(File directory, String branch, CredentialsProvider cp) throws GitAPIException, IOException {
-        System.out.println("Pulling From " + REMOTE);
+        logger.info("Pulling From " + REMOTE);
         try (Git git = Git.open(directory)) {
             PullResult result = git.pull()
                     .setCredentialsProvider(cp)
                     .setRemoteBranchName(branch)
                     .call();
-            System.out.println("Fetch Message: " + result.getFetchResult().getMessages());
-            System.out.println("Merge Status: " + result.getMergeResult().getMergeStatus());
+            logger.info("Fetch Message: " + result.getFetchResult().getMessages());
+            logger.info("Merge Status: " + result.getMergeResult().getMergeStatus());
             return result.getMergeResult().getMergeStatus();
         }
     }

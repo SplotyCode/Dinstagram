@@ -9,6 +9,8 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.FileConstants;
 import team.gutterteam123.baselib.PortConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
@@ -26,6 +28,8 @@ import java.nio.charset.Charset;
 public class Starter {
 
     @Getter private static Starter instance;
+
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static void main(String[] args){
         try {
@@ -76,7 +80,7 @@ public class Starter {
             if (status != MergeResult.MergeStatus.ALREADY_UP_TO_DATE) {
                 buildMaven();
             } else {
-                System.out.println("Building skipped current jars are up-to-date");
+                logger.info("Building skipped current jars are up-to-date");
             }
         }
         
@@ -84,7 +88,7 @@ public class Starter {
             new ConfigProcess().start();
         }
         configClient.setOnConfigChange(s -> {
-            System.out.println("Config Updated!");
+            logger.info("Config Updated!");
         });
         configClient.start();
         configClient.join();
@@ -101,9 +105,9 @@ public class Starter {
     }
 
     private void buildMaven() {
-        System.out.println("Installing All Modules...");
+        logger.info("Installing All Modules...");
         mavenHelper.install(FileConstants.getREPO());
-        System.out.println("Finished Building 3 Files!");
+        logger.info("Finished Building 3 Files!");
     }
 
 

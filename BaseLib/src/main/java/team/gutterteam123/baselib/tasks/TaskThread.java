@@ -1,11 +1,16 @@
 package team.gutterteam123.baselib.tasks;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashSet;
 
 public class TaskThread extends Thread {
 
     /* Delay in ms */
     private static final long REFRESH_DELAY = 250;
+
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     public TaskThread() {
         super("Task Thread");
@@ -24,7 +29,7 @@ public class TaskThread extends Thread {
         }
         long delay = System.currentTimeMillis() - start;
         if (delay > 1200) {
-            System.out.println("TaskThread is heavily overloaded! Current Delay: " + delay);
+            logger.debug("TaskThread is heavily overloaded! Current Delay: {}", delay);
         }
         try {
             Thread.sleep(Math.max(0, REFRESH_DELAY - delay));

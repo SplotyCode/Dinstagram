@@ -6,11 +6,11 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.util.concurrent.Future;
-import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.FileConstants;
 import team.gutterteam123.netlib.NetClient;
 import team.gutterteam123.netlib.Registrys;
@@ -21,9 +21,7 @@ import team.gutterteam123.netlib.packetbase.UnsupportedPacketException;
 import team.gutterteam123.netlib.packets.ConfigRequestUpdate;
 import team.gutterteam123.netlib.packets.ConfigUpdate;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.util.function.Consumer;
@@ -44,7 +42,7 @@ public class ConfigClient extends NetClient {
         pipeline.addLast(new SerializedPacketEncoder(Registrys.getInstance().getConfigIn()));
         pipeline.addLast(new LengthFieldBasedFrameDecoder(Short.MAX_VALUE, 0, 4, 0, 4));
         pipeline.addLast(new SerializedPacketDecoder(Registrys.getInstance().getConfigOut()));
-        pipeline.addLast(new ConfigHandler());
+        pipeline.addLast(new ConfigClientHandler());
     }
 
     @Override
@@ -52,7 +50,10 @@ public class ConfigClient extends NetClient {
         return "Config Client";
     }
 
-    public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {
+    public class ConfigClientHandler extends SimpleChannelInboundHandler<SerializedPacket> {
+
+        Logger logger = LoggerFactory.getLogger(getClass());
+
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -61,7 +62,7 @@ public class ConfigClient extends NetClient {
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            System.out.println("Config Client Channel Active... sending Hash!");
+            logger.info("Config Client Channel Active... sending Hash!");
             String hash = "";
             if (FileConstants.getCONFIG().exists()) {
                 FileInputStream fis = new FileInputStream(FileConstants.getCONFIG());

@@ -4,6 +4,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.FileConstants;
 import team.gutterteam123.baselib.cache.SimpleCache;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;
@@ -15,7 +17,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {
+public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {
+
+    final Logger logger = LoggerFactory.getLogger(getClass());
+
 
     private SimpleCache<String> hashCache = new SimpleCache<String>(10 * 1000, this::getConfigHash);
     private SimpleCache<String> configCache = new SimpleCache<String>(10 * 1000, () -> {
@@ -32,7 +37,7 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
         if (packet instanceof ConfigRequestUpdate) {
             ConfigRequestUpdate request = (ConfigRequestUpdate) packet;
             if (request.getHash().isEmpty() || !request.getHash().equals(hashCache.get())) {
-                System.out.println("Uploading config to " + ctx.channel().remoteAddress().toString());
+                logger.debug("Uploading config to {}", ctx.channel().remoteAddress().toString());
                 ctx.channel().writeAndFlush(new ConfigUpdate(configCache.get()), ctx.voidPromise());
             }
         } else {

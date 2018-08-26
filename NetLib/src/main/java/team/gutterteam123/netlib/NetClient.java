@@ -13,6 +13,8 @@ import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.util.concurrent.Future;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import team.gutterteam123.netlib.packetbase.Packet;
 
 import java.io.IOException;
@@ -23,6 +25,9 @@ public abstract class NetClient<P extends Packet> extends Thread {
     
     protected InetSocketAddress address;
     protected boolean epoll;
+
+    Logger logger = LoggerFactory.getLogger(getClass());
+
 
     public NetClient(InetSocketAddress address, boolean epoll) {
         this.address = address;
@@ -81,7 +86,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
                 currentReconnect *= reconnectMulti;
             }
             long reconnectDelay = Math.max(reconnectMax, currentReconnect);
-            System.out.println(getDisplayName() + " Client is down! Reconnecting in " + reconnectDelay / 1000 + "secs!");
+            logger.info(getDisplayName() + " Client is down! Reconnecting in {}secs!", reconnectDelay / 1000);
             try {
                 Thread.sleep(reconnectDelay);
             } catch (InterruptedException e) {

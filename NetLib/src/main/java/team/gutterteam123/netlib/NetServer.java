@@ -11,6 +11,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.ThreadGroupUtils;
 import team.gutterteam123.baselib.util.ThreadUtil;
 import team.gutterteam123.netlib.packetbase.Packet;
@@ -27,6 +29,9 @@ public abstract class NetServer<P extends Packet> extends Thread {
     protected int port;
     protected boolean epoll;
 
+    final Logger logger = LoggerFactory.getLogger(getClass());
+
+
     public NetServer(int port) {
         this(port, Epoll.isAvailable());
     }
@@ -42,7 +47,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     @Override
     public void run() {
         try {
-            System.out.println("Starting " + getDisplayName() + " under port " + port);
+            logger.info("Starting " + getDisplayName() + " under port " + port);
             bossGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
             workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
             ServerBootstrap bootstrap = new ServerBootstrap()
@@ -70,11 +75,11 @@ public abstract class NetServer<P extends Packet> extends Thread {
         }
 
         if (autoReconnect) {
-            System.out.println(getDisplayName() + " Server is down! Restarting in 500ms");
+            logger.info("{} Server is down! Restarting in 500ms", getDisplayName());
             ThreadUtil.sleep(500);
             run();
         } else {
-            System.out.println(getDisplayName() + " Server is down! No Reconnecting!");
+            logger.info("{} Server is down! No Reconnecting!", getDisplayName());
         }
     }
 }

@@ -1,5 +1,7 @@
 package team.gutterteam123.starter.process;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.OperatingSystem;
 import team.gutterteam123.baselib.util.ThreadUtil;
 
@@ -13,6 +15,9 @@ public abstract class ProcessThread extends Thread {
 
     private Process process;
 
+    final Logger logger = LoggerFactory.getLogger(getClass());
+
+
     @Override
     public void run() {
         try {
@@ -21,7 +26,7 @@ public abstract class ProcessThread extends Thread {
         } catch (InterruptedException | IOException ex) {
             ex.printStackTrace();
         }
-        System.out.println(getDisplayName() + " Process Down! Exiting with: " + process.exitValue() + " Restarting in 10s...");
+        logger.info("{} Process Down! Exiting with: {} Restarting in 10s...", getDisplayName(), process.exitValue());
         ThreadUtil.sleep(10 * 1000);
         run();
     }
