@@ -20,6 +20,10 @@ public abstract class ProcessThread extends Thread {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public ProcessThread() {
+        Thread.currentThread().setName(getDisplayName() + "'s Process Watcher Thread");
+    }
+
     @Override
     public void run() {
         try {
