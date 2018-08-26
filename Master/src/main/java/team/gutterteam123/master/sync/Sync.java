@@ -38,6 +38,7 @@ public class Sync {
             JSONArray array = json.getJSONArray("country");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject country = array.getJSONObject(i);
+                System.out.println("a " + country.toString());
                 if (country.getString("name").equals(Master.getInstance().servergroup)) {
                     JSONArray roots = country.getJSONArray("roots");
                     for (int j = 0; j < roots.length(); j++) {
