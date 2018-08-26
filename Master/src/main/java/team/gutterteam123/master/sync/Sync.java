@@ -118,7 +118,7 @@ public class Sync {
     private boolean isOnline(String host) {
         try {
             Socket socket = new Socket();
-            socket.connect(new InetSocketAddress(host, PortConstants.getMASTER_SYNC()), 3000);
+            socket.connect(new InetSocketAddress(host, PortConstants.getMASTER_SYNC()), TimeConstants.getSYNC_TIMEOUT());
             socket.close();
         } catch (IOException ex) {
             return false;

@@ -12,4 +12,6 @@ public final class TimeConstants {
 
     @Getter private static final long SYNC_UPDATE = /* 45 Seconds */ 45 * 1000;
 
+    @Getter private static final int SYNC_TIMEOUT = /* 3 Seconds */ 3 * 1000;
+
 }
