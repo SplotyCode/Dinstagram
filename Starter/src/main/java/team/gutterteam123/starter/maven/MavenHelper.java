@@ -1,16 +1,29 @@
 package team.gutterteam123.starter.maven;
 
 import org.apache.maven.cli.MavenCli;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import team.gutterteam123.baselib.constants.FileConstants;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 public class MavenHelper {
 
     private MavenCli cli = new MavenCli();
     private File repo;
+    private PrintStream stdOut;
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public MavenHelper(File repo) {
         this.repo = repo;
+        try {
+            stdOut = new PrintStream(FileConstants.getMAVEN_LOG());
+        } catch (FileNotFoundException ex) {
+            logger.error("Maven Log File was not created by Starter", ex);
+        }
     }
 
     public void build(String name) {
@@ -26,6 +39,6 @@ public class MavenHelper {
     }
 
     public void install(File file) {
-        cli.doMain(new String[]{"-Dmaven.multiModuleProjectDirectory=" + file.getAbsolutePath(), "clean", "install"}, file.getAbsolutePath(), System.out, System.err);
+        cli.doMain(new String[]{"clean", "install", "-Dmaven.multiModuleProjectDirectory=" + file.getAbsolutePath()}, file.getAbsolutePath(), stdOut, stdOut);
     }
 }

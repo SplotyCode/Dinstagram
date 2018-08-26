@@ -12,4 +12,7 @@ public final class FileConstants {
     @Getter private static final File CONFIG = new File(DINSTAGRAM, "config.json");
     @Getter private static final File CONFIG_SERVER = new File(DINSTAGRAM, "configserver/config.json");
 
+    @Getter private static final File LOG = new File(DINSTAGRAM, "logs/");
+    @Getter private static final File MAVEN_LOG = new File(LOG, "mavenbuild.txt");
+
 }

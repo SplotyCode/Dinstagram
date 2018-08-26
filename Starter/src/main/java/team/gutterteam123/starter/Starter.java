@@ -63,6 +63,7 @@ public class Starter {
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
         instance = this;
         BasicConfigurator.configure();
+        prepareFolders();
         loadConfig();
         new ArgumentBuilder().setInput(args).setObject(this).build();
 
@@ -92,6 +93,11 @@ public class Starter {
 
         new MasterProcess().start();
 
+    }
+
+    private void prepareFolders() throws IOException {
+        FileConstants.getLOG().mkdirs();
+        FileConstants.getMAVEN_LOG().createNewFile();
     }
 
     private void loadConfig() throws IOException {
