@@ -39,6 +39,7 @@ public class Sync {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject country = array.getJSONObject(i);
                 System.out.println("a " + country.toString());
+                System.out.println("b " + country.getString("name"));
                 if (country.
                         getString("name").
                         equals(Master.getInstance().
