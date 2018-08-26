@@ -18,4 +18,9 @@ public class RunLaterTask extends Task {
     void onCall() {
         TaskManager.getInstance().getTasks().remove(this);
     }
+
+    @Override
+    Runnable getRunnable() {
+        return runnable;
+    }
 }

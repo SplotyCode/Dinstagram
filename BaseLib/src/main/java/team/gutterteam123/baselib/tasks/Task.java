@@ -8,11 +8,12 @@ public abstract class Task {
 
     @Getter
     private final boolean async;
-    @Getter
-    private final Runnable runnable;
+    protected final Runnable runnable;
 
     abstract boolean isReady();
 
     abstract void onCall();
+
+    abstract Runnable getRunnable();
 
 }

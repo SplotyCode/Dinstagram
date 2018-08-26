@@ -23,4 +23,9 @@ public class TimerTask extends Task {
         running = true;
         time = System.currentTimeMillis();
     }
+
+    @Override
+    Runnable getRunnable() {
+        return runnable;
+    }
 }
