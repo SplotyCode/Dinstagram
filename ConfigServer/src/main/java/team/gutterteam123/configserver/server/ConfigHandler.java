@@ -26,8 +26,8 @@ public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedP
     private SimpleCache<String> configCache = new SimpleCache<String>(10 * 1000, () -> {
         try {
             return FileUtils.readFileToString(FileConstants.getCONFIG_SERVER(), Charset.forName("Utf-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            logger.error("Coult not Read From Json config File", ex);
         }
         return null;
     });
@@ -54,13 +54,13 @@ public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedP
                 return hash;
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.error("Could not generate config hash", ex);
         }
         return "";
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
+        logger.error("Error in Server Config Channel", cause);
     }
 }

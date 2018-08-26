@@ -35,7 +35,7 @@ public class Starter {
         try {
             new Starter(args);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LoggerFactory.getLogger(Starter.class).error("Error While Staring Starter", ex);
         }
     }
 

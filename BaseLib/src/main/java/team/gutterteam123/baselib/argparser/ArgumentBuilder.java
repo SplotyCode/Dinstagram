@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -13,6 +15,8 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArgumentBuilder {
+
+    private final static Logger logger = LoggerFactory.getLogger(ArgumentBuilder.class);
 
     private Object object;
     private String[] input;
@@ -73,7 +77,7 @@ public class ArgumentBuilder {
                 }
             }
         } catch (ReflectiveOperationException ex) {
-            ex.printStackTrace();
+            logger.error("Could not set Value!", ex);
         }
 
         for (Argument stillPresent : arguments) {
@@ -89,8 +93,8 @@ public class ArgumentBuilder {
                 Converter converter = (Converter) clazz.load().newInstance();
                 addConverter(converter);
             }
-        } catch (IOException | ReflectiveOperationException e) {
-            e.printStackTrace();
+        } catch (IOException | ReflectiveOperationException ex) {
+            logger.error("Failed Loading default converters", ex);
         }
     }
 

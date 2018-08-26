@@ -4,6 +4,8 @@ import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.FileConstants;
 import team.gutterteam123.baselib.PortConstants;
 import team.gutterteam123.master.Master;
@@ -18,6 +20,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Sync {
+
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     private List<String> addresses = new ArrayList<>();
 
@@ -39,7 +43,7 @@ public class Sync {
                 }
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.error("Could not Parse Json Config!", ex);
         }
 
     }

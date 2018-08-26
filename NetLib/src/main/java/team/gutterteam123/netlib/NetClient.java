@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import team.gutterteam123.baselib.util.ThreadUtil;
 import team.gutterteam123.netlib.packetbase.Packet;
 
 import java.io.IOException;
@@ -76,7 +77,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
             f.sync();
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            logger.error("Exception in Client", ex);
         }
 
         if (autoReconnect) {
@@ -87,11 +88,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
             }
             long reconnectDelay = Math.max(reconnectMax, currentReconnect);
             logger.info(getDisplayName() + " Client is down! Reconnecting in {}secs!", reconnectDelay / 1000);
-            try {
-                Thread.sleep(reconnectDelay);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            ThreadUtil.sleep(reconnectDelay);
             run();
         }
     }

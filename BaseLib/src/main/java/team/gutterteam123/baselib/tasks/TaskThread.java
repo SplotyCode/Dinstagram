@@ -2,6 +2,7 @@ package team.gutterteam123.baselib.tasks;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import team.gutterteam123.baselib.util.ThreadUtil;
 
 import java.util.HashSet;
 
@@ -31,11 +32,7 @@ public class TaskThread extends Thread {
         if (delay > 1200) {
             logger.debug("TaskThread is heavily overloaded! Current Delay: {}", delay);
         }
-        try {
-            Thread.sleep(Math.max(0, REFRESH_DELAY - delay));
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+        ThreadUtil.sleep(Math.max(0, REFRESH_DELAY - delay));
         run();
     }
 

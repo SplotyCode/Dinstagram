@@ -23,8 +23,10 @@ public abstract class ProcessThread extends Thread {
         try {
             startProcess();
             process.waitFor();
-        } catch (InterruptedException | IOException ex) {
-            ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            logger.error("Process got interrupted", ex);
+        } catch (IOException ex) {
+            logger.error("Could not start Process", ex);
         }
         logger.info("{} Process Down! Exiting with: {} Restarting in 10s...", getDisplayName(), process.exitValue());
         ThreadUtil.sleep(10 * 1000);

@@ -70,8 +70,8 @@ public abstract class NetServer<P extends Packet> extends Thread {
             });
             future.addListener((ChannelFutureListener) this::close);
             future.sync();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            logger.error("Error in NetServer", ex);
         }
 
         if (autoReconnect) {

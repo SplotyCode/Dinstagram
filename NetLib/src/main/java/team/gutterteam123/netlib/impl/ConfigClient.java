@@ -57,7 +57,7 @@ public class ConfigClient extends NetClient {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            cause.printStackTrace();
+            logger.error("Exception in Client Channel", cause);
         }
 
         @Override

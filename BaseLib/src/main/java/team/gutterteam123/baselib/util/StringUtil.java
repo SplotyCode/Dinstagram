@@ -241,7 +241,6 @@ public final class StringUtil {
         try {
             return string.getBytes(UTF8);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -250,7 +249,6 @@ public final class StringUtil {
         try {
             return new String(bytes, UTF8);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
             return null;
         }
     }
