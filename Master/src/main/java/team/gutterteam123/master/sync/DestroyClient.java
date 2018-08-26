@@ -18,10 +18,13 @@ import team.gutterteam123.netlib.packets.MasterSyncDestroy;
 
 import java.net.InetSocketAddress;
 
-public class SyncClient extends NetClient {
+public class DestroyClient extends NetClient<SerializedPacket> {
 
-    public SyncClient(String address) {
+    private String better;
+
+    public DestroyClient(String address, String better) {
         super(new InetSocketAddress(address, PortConstants.getMASTER_SYNC()));
+        this.better = better;
     }
 
     @Override
@@ -43,6 +46,11 @@ public class SyncClient extends NetClient {
         private final Logger logger = LoggerFactory.getLogger(getClass());
 
         @Override
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+            ctx.channel().writeAndFlush(new MasterSyncDestroy(better), ctx.voidPromise());
+        }
+
+        @Override
         protected void channelRead0(ChannelHandlerContext ctx, SerializedPacket packet) throws Exception {
 
         }
@@ -55,6 +63,6 @@ public class SyncClient extends NetClient {
 
     @Override
     protected String getDisplayName() {
-        return "Master Sync Server";
+        return "Master Destroy Client";
     }
 }

@@ -1,6 +1,7 @@
 package team.gutterteam123.master.sync;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,6 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.constants.PortConstants;
+import team.gutterteam123.baselib.constants.TimeConstants;
+import team.gutterteam123.baselib.tasks.TaskManager;
+import team.gutterteam123.baselib.tasks.TimerTask;
+import team.gutterteam123.baselib.util.NetUtil;
 import team.gutterteam123.master.Master;
 
 import java.io.IOException;
@@ -22,8 +27,9 @@ public class Sync {
     final Logger logger = LoggerFactory.getLogger(getClass());
 
     private List<String> addresses = new ArrayList<>();
+    private String currentBest;
 
-    @Getter private SyncClient client;
+    @Setter @Getter private SyncClient client;
     @Getter private SyncServer server;
 
     public Sync() {
@@ -44,6 +50,36 @@ public class Sync {
             logger.error("Could not Parse Json Config!", ex);
         }
 
+        currentBest = getBestRoot();
+        if (currentBest.equals(NetUtil.getRemoteIp())) {
+            server = new SyncServer();
+            server.start();
+        }
+        client = new SyncClient(currentBest);
+        client.start();
+
+        TaskManager.getInstance().registerTask(new TimerTask(true, () -> {
+            String best = getBestRoot();
+            if (!best.equals(currentBest)) {
+                if (currentBest.equals(NetUtil.getRemoteIp())) {
+                    server.shutdown();
+                }
+                if (best.equals(NetUtil.getRemoteIp())) {
+                    server = new SyncServer();
+                    server.start();
+                }
+                client = new SyncClient(best);
+                client.start();
+                currentBest = best;
+
+                addresses.sort(Comparator.comparingInt(String::hashCode));
+                for (String root : addresses) {
+                    if (root.hashCode() > currentBest.hashCode() && isOnline(root)) {
+                        new DestroyClient(root, best).start();
+                    }
+                }
+            }
+        }, TimeConstants.getSYNC_UPDATE(), TimeConstants.getSYNC_UPDATE()));
     }
 
     private String getBestRoot() {
@@ -53,7 +89,7 @@ public class Sync {
                 return root;
             }
         }
-        return null;
+        return NetUtil.getRemoteIp();
     }
 
     private boolean isOnline(String host) {
