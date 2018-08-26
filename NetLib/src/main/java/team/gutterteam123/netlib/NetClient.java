@@ -41,6 +41,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
 
     @Getter @Setter protected boolean keepAlive = true;
     @Getter @Setter protected boolean autoReconnect = true;
+    @Getter @Setter protected boolean autoReconnectWithoutException = true;
     @Getter @Setter protected float reconnectMulti = 1.5f;
     @Getter @Setter protected long reconnectMax = 30 * 1000;
     @Getter @Setter protected long reconnectStart = 5 * 1000;
@@ -77,9 +78,21 @@ public abstract class NetClient<P extends Packet> extends Thread {
 
         } catch (Exception ex) {
             logger.error("Exception in Client", ex);
+            if (autoReconnect) {
+                if (currentReconnect == -1) {
+                    currentReconnect = reconnectStart;
+                } else {
+                    currentReconnect *= reconnectMulti;
+                }
+                long reconnectDelay = Math.max(reconnectMax, currentReconnect);
+                logger.info(getDisplayName() + " Client is down! Reconnecting in {}secs!", reconnectDelay / 1000);
+                ThreadUtil.sleep(reconnectDelay);
+                run();
+            }
+            return;
         }
 
-        if (autoReconnect) {
+        if (autoReconnect && autoReconnectWithoutException) {
             if (currentReconnect == -1) {
                 currentReconnect = reconnectStart;
             } else {
