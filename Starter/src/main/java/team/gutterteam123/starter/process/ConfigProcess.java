@@ -1,6 +1,6 @@
 package team.gutterteam123.starter.process;
 
-import team.gutterteam123.baselib.FileConstants;
+import team.gutterteam123.baselib.constants.FileConstants;
 
 import java.io.IOException;
 

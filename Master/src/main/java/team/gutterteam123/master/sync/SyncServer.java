@@ -2,7 +2,7 @@ package team.gutterteam123.master.sync;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelPipeline;
-import team.gutterteam123.baselib.PortConstants;
+import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.netlib.NetServer;
 
 public class SyncServer extends NetServer {

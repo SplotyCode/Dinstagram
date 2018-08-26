@@ -1,4 +1,4 @@
-package team.gutterteam123.baselib;
+package team.gutterteam123.baselib.constants;
 
 import lombok.Getter;
 

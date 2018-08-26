@@ -5,8 +5,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.gutterteam123.baselib.FileConstants;
-import team.gutterteam123.baselib.PortConstants;
+import team.gutterteam123.baselib.constants.FileConstants;
+import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.master.Master;
 
 import java.io.IOException;

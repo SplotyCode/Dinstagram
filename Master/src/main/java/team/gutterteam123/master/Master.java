@@ -5,7 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.gutterteam123.baselib.FileConstants;
+import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
 import team.gutterteam123.database.DatabaseConnection;

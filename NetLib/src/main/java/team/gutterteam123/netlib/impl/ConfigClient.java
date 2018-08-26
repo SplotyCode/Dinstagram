@@ -11,7 +11,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.gutterteam123.baselib.FileConstants;
+import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.netlib.NetClient;
 import team.gutterteam123.netlib.Registrys;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;

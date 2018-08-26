@@ -1,6 +1,6 @@
 package team.gutterteam123.configserver;
 
-import team.gutterteam123.baselib.PortConstants;
+import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.configserver.server.ConfigServer;
 
 public class Main {

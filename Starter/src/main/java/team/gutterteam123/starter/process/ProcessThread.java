@@ -2,7 +2,7 @@ package team.gutterteam123.starter.process;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.gutterteam123.baselib.OperatingSystem;
+import team.gutterteam123.baselib.objects.OperatingSystem;
 import team.gutterteam123.baselib.util.ThreadUtil;
 
 import java.io.File;

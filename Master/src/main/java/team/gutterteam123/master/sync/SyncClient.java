@@ -2,7 +2,7 @@ package team.gutterteam123.master.sync;
 
 import io.netty.channel.ChannelPipeline;
 import io.netty.util.concurrent.Future;
-import team.gutterteam123.baselib.PortConstants;
+import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.netlib.NetClient;
 
 import java.net.InetSocketAddress;

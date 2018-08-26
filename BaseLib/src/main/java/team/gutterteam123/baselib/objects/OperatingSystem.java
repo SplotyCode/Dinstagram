@@ -1,4 +1,4 @@
-package team.gutterteam123.baselib;
+package team.gutterteam123.baselib.objects;
 
 public enum OperatingSystem {
 
