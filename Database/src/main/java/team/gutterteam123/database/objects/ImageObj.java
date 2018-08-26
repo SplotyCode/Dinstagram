@@ -9,7 +9,8 @@ import java.util.*;
 
 @Getter
 @Setter
-public class ImageObj implements DatabaseObj  {
+public class ImageObj implements DatabaseObj {
+
     protected long imageId;
     protected long likesInt;
     protected Set<Integer> idOfLikers;

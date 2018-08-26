@@ -20,7 +20,7 @@
                     <outputDirectory>${project.basedir}/../../</outputDirectory>
                     <archive>
                         <manifest>
-                            <mainClass>team.gutterteam123.Master</mainClass>
+                            <mainClass>team.gutterteam123.master.Master</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -50,6 +50,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20180813</version>
+        </dependency>
+        <dependency>
+            <groupId>team.gutterteam123.distagram</groupId>
+            <artifactId>Database</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
