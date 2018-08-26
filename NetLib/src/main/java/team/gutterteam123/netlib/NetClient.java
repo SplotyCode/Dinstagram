@@ -55,6 +55,8 @@ public abstract class NetClient<P extends Packet> extends Thread {
     @Override
     public void run() {
         Thread.currentThread().setName(getDisplayName() + " Client Thread");
+        logger.info("Connecting {} to {}...", getDisplayName(), address.toString());
+
         ThreadFactory factory = ThreadUtil.getThreadFactory(getDisplayName() + " worker group #%s");
         workerGroup = epoll ? new EpollEventLoopGroup(0, factory) : new NioEventLoopGroup(0, factory);
         try {
@@ -74,8 +76,8 @@ public abstract class NetClient<P extends Packet> extends Thread {
             ChannelFuture f = channel.closeFuture();
             f.addListener(future -> workerGroup.shutdownGracefully());
             f.addListener(this::onClose);
+            logger.info("{} is connected to {}!", getDisplayName(), address.toString());
             f.sync();
-
         } catch (Exception ex) {
             logger.error("Exception in Client", ex);
             if (autoReconnect) {
