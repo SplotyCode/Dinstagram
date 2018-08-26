@@ -40,8 +40,11 @@ public class Master {
 
     private Master(String[] args) throws Exception {
         instance = this;
+        Thread.currentThread().setName("Master - Main Thread");
+
         BasicConfigurator.configure();
         org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
+
         new ArgumentBuilder().setObject(this).setInput(args).build();
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Master Stopping Thread"));

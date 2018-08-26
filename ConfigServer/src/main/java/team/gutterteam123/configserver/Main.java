@@ -10,6 +10,8 @@ public class Main {
     private ConfigServer server = new ConfigServer(PortConstants.getCONFIG_DOWNLOAD());
 
     private Main() {
+        Thread.currentThread().setName("ConfigServer - Main Thread");
+
         BasicConfigurator.configure();
         org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
 

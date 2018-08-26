@@ -69,10 +69,14 @@ public class Starter {
 
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
         instance = this;
+        Thread.currentThread().setName("Starter - Main Thread");
+
         BasicConfigurator.configure();
         org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
+
         prepareFolders();
         loadConfig();
+
         new ArgumentBuilder().setInput(args).setObject(this).build();
 
         configClient = new ConfigClient(new InetSocketAddress(configServer, PortConstants.getCONFIG_DOWNLOAD()));
