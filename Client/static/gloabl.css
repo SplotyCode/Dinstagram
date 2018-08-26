@@ -99,3 +99,6 @@ body, button, input, textarea {
     color: transparent;
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
  }
+    .center{
+        text-align: center;
+    }
