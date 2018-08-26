@@ -3,6 +3,7 @@ package team.gutterteam123.master;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ public class Master {
 
     private Master(String[] args) throws Exception {
         BasicConfigurator.configure();
+        org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
         new ArgumentBuilder().setObject(this).setInput(args).build();
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Master Stopping Thread"));
