@@ -49,7 +49,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     public void run() {
         try {
             Thread.currentThread().setName(getDisplayName() + " Server Thread");
-            logger.info("Starting " + getDisplayName() + " under port " + port);
+            logger.info("Starting {} under port {}...", getDisplayName(), port);
 
             ThreadFactory factory = ThreadUtil.getThreadFactory(getDisplayName() + " worker group #%s");
 
@@ -76,6 +76,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
             });
             future.addListener((ChannelFutureListener) this::close);
             onStart(future);
+            logger.info("Started {} under port {}!", getDisplayName(), port);
             future.sync();
         } catch (Exception ex) {
             logger.error("Error in NetServer", ex);
