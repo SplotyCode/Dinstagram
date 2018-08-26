@@ -17,4 +17,5 @@ wagon-http-lightweight (3.1.0)<br>
 aether-connector-wagon (0.9.0.M2)<br>
 maven-embedder (3.5.4)<br>
 jgit (5.0.2.201807311906-r)<br>
-slf4j (log4j12) (1.7.25)
+slf4j (log4j12) (1.7.25)<br>
+maven-invoker (2.0.11)<br>

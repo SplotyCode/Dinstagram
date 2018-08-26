@@ -20,6 +20,7 @@ import team.gutterteam123.starter.maven.MavenHelper;
 import team.gutterteam123.starter.process.ConfigProcess;
 import team.gutterteam123.starter.process.MasterProcess;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -109,7 +110,7 @@ public class Starter {
 
     private void buildMaven() {
         logger.info("Installing All Modules...");
-        mavenHelper.install(FileConstants.getREPO());
+        mavenHelper.install(new File(FileConstants.getREPO(), "pom.xml"));
         logger.info("Finished Building 3 Files!");
     }
 
