@@ -16,6 +16,7 @@ import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
+import team.gutterteam123.baselib.constants.TimeConstants;
 import team.gutterteam123.baselib.util.ThreadUtil;
 import team.gutterteam123.netlib.impl.ConfigClient;
 import team.gutterteam123.starter.git.GitHelper;
@@ -106,7 +107,7 @@ public class Starter {
         configClient.setOnConfigChange(s -> logger.info("Config Updated!"));
 
         while (FileConstants.getCONFIG_SERVER_LOCK().exists()) {
-            ThreadUtil.sleep(200);
+            ThreadUtil.sleep(TimeConstants.getCONFIG_LOCK_UPDATE());
         }
         configClient.start();
         configClient.join();

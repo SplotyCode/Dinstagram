@@ -9,6 +9,7 @@ public final class TimeConstants {
 
     @Getter private static final long CONFIG_HASH_CACHE = /* 10 Seconds */ 10 * 1000;
     @Getter private static final long CONFIG_CACHE = /* 10 Seconds */ 10 * 1000;
+    @Getter private static final long CONFIG_LOCK_UPDATE = /* Avery 200ms */ 200;
 
     @Getter private static final long SYNC_UPDATE = /* 45 Seconds */ 45 * 1000;
 
