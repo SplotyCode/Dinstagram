@@ -77,7 +77,6 @@ public class Starter {
             }
         }
         
-        new MasterProcess().start();
         if (config) {
             new ConfigProcess().start();
         }
@@ -85,6 +84,10 @@ public class Starter {
             System.out.println("Config Updated!");
         });
         configClient.start();
+        configClient.join();
+
+        new MasterProcess().start();
+
     }
 
     private void loadConfig() throws IOException {
@@ -95,15 +98,9 @@ public class Starter {
     }
 
     private void buildMaven() {
-        System.out.println("Installing BaseLib, Database and NetLib");
+        System.out.println("Installing All Modules...");
         mavenHelper.install(FileConstants.getREPO());
-        mavenHelper.install("BaseLib");
-        mavenHelper.install("NetLib");
-        mavenHelper.install("Database");
-        System.out.println("Building jar for Master and ConfigServer!");
-        mavenHelper.build("Master");
-        mavenHelper.build("ConfigServer");
-        System.out.println("Finished Building 2 Files!");
+        System.out.println("Finished Building 3 Files!");
     }
 
 
