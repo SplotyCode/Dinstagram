@@ -18,6 +18,7 @@ import team.gutterteam123.netlib.packetbase.SerializedPacket;
 import team.gutterteam123.netlib.packetbase.SerializedPacketDecoder;
 import team.gutterteam123.netlib.packetbase.SerializedPacketEncoder;
 import team.gutterteam123.netlib.packetbase.UnsupportedPacketException;
+import team.gutterteam123.netlib.packets.ConfigNoUpdate;
 import team.gutterteam123.netlib.packets.ConfigRequestUpdate;
 import team.gutterteam123.netlib.packets.ConfigUpdate;
 
@@ -30,6 +31,7 @@ public class ConfigClient extends NetClient {
 
     public ConfigClient(InetSocketAddress address) {
         super(address);
+        setAutoReconnect(false);
     }
 
     @Override protected void onClose(Future future) {}
@@ -73,11 +75,14 @@ public class ConfigClient extends NetClient {
         }
 
         @Override
-        protected void channelRead0(ChannelHandlerContext channelHandlerContext, SerializedPacket packet) throws Exception {
+        protected void channelRead0(ChannelHandlerContext ctx, SerializedPacket packet) throws Exception {
             if (packet instanceof ConfigUpdate) {
                 ConfigUpdate update = (ConfigUpdate) packet;
                 onConfigChange.accept(update.getConfig());
                 FileUtils.write(FileConstants.getCONFIG(), update.getConfig(), Charset.forName("Utf-8"));
+                ctx.channel().close();
+            } else if (packet instanceof ConfigNoUpdate) {
+                ctx.channel().close();
             } else {
                 throw new UnsupportedPacketException(packet.getClass().getSimpleName() + " is not supported!");
             }
