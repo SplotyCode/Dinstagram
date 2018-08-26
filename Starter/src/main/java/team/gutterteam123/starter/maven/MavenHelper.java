@@ -51,7 +51,6 @@ public class MavenHelper {
         invoker.setWorkingDirectory(file);
         invoker.setErrorHandler(stdOut);
         invoker.setOutputHandler(stdOut);
-        invoker.setMavenHome(new File(System.getenv("M3_HOME")));
         try {
             invoker.execute(request);
         } catch (MavenInvocationException e) {
