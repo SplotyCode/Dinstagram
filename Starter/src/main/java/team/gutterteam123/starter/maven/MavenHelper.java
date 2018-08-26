@@ -41,13 +41,17 @@ public class MavenHelper {
 
     public void install(File file) {
         InvocationRequest request = new DefaultInvocationRequest();
-        request.setPomFile(file);
+        request.setPomFile(new File(file, "pom.xml"));
         request.setGoals(Collections.singletonList("install"));
         request.setDebug(true);
         request.setOutputHandler(stdOut);
         request.setErrorHandler(stdOut);
 
         Invoker invoker = new DefaultInvoker();
+        invoker.setWorkingDirectory(file);
+        invoker.setErrorHandler(stdOut);
+        invoker.setOutputHandler(stdOut);
+        invoker.setMavenHome(new File(System.getenv("M3_HOME")));
         try {
             invoker.execute(request);
         } catch (MavenInvocationException e) {

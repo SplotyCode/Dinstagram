@@ -110,7 +110,7 @@ public class Starter {
 
     private void buildMaven() {
         logger.info("Installing All Modules...");
-        mavenHelper.install(new File(FileConstants.getREPO(), "pom.xml"));
+        mavenHelper.install(FileConstants.getREPO());
         logger.info("Finished Building 3 Files!");
     }
 
