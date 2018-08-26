@@ -2,6 +2,8 @@ package team.gutterteam123.starter;
 
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
@@ -57,6 +59,7 @@ public class Starter {
 
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
         instance = this;
+        BasicConfigurator.configure();
         loadConfig();
         new ArgumentBuilder().setInput(args).setObject(this).build();
 
