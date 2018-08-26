@@ -42,6 +42,8 @@ public class MavenHelper {
     public void install(File file) {
         InvocationRequest request = new DefaultInvocationRequest();
         request.setPomFile(new File(file, "pom.xml"));
+        request.setBaseDirectory(file);
+        request.setShowErrors(true);
         request.setGoals(Collections.singletonList("install"));
         request.setDebug(true);
         request.setOutputHandler(stdOut);
@@ -51,7 +53,7 @@ public class MavenHelper {
         invoker.setWorkingDirectory(file);
         invoker.setErrorHandler(stdOut);
         invoker.setOutputHandler(stdOut);
-        invoker.setMavenHome(new File(System.getenv("M2_HOME")));
+        invoker.setMavenHome(new File(FileConstants.getREPO(), "maven3/"));
         try {
             invoker.execute(request);
         } catch (MavenInvocationException e) {
