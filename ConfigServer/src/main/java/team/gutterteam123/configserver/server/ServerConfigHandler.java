@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.cache.SimpleCache;
+import team.gutterteam123.baselib.constants.TimeConstants;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;
 import team.gutterteam123.netlib.packetbase.UnsupportedPacketException;
 import team.gutterteam123.netlib.packets.ConfigNoUpdate;
@@ -23,8 +24,8 @@ public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedP
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    private SimpleCache<String> hashCache = new SimpleCache<>(10 * 1000, this::getConfigHash);
-    private SimpleCache<String> configCache = new SimpleCache<>(10 * 1000, () -> {
+    private SimpleCache<String> hashCache = new SimpleCache<>(TimeConstants.getCONFIG_HASH_CACHE(), this::getConfigHash);
+    private SimpleCache<String> configCache = new SimpleCache<>(TimeConstants.getCONFIG_CACHE(), () -> {
         try {
             return FileUtils.readFileToString(FileConstants.getCONFIG_SERVER(), Charset.forName("Utf-8"));
         } catch (IOException ex) {
