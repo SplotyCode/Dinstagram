@@ -23,7 +23,7 @@ public class Master {
 
     public static void main(String[] args) {
         try {
-            instance = new Master(args);
+            new Master(args);
         } catch (Exception ex) {
             logger.error("Failed to Start Master", ex);
         }
@@ -39,6 +39,7 @@ public class Master {
 
 
     private Master(String[] args) throws Exception {
+        instance = this;
         BasicConfigurator.configure();
         org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
         new ArgumentBuilder().setObject(this).setInput(args).build();
