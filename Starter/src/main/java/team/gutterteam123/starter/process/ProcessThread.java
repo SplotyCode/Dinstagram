@@ -1,5 +1,7 @@
 package team.gutterteam123.starter.process;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.objects.OperatingSystem;
@@ -13,10 +15,10 @@ import java.util.List;
 
 public abstract class ProcessThread extends Thread {
 
-    private Process process;
+    @Getter private Process process;
+    @Getter @Setter private boolean shutdown;
 
     final Logger logger = LoggerFactory.getLogger(getClass());
-
 
     @Override
     public void run() {
@@ -28,6 +30,7 @@ public abstract class ProcessThread extends Thread {
         } catch (IOException ex) {
             logger.error("Could not start Process", ex);
         }
+        if (shutdown) return;
         logger.info("{} Process Down! Exiting with: {} Restarting in 10s...", getDisplayName(), process.exitValue());
         ThreadUtil.sleep(10 * 1000);
         run();

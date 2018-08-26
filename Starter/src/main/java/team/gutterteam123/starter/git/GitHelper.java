@@ -4,6 +4,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,9 @@ public class GitHelper {
             logger.info("Fetch Message: " + result.getFetchResult().getMessages());
             logger.info("Merge Status: " + result.getMergeResult().getMergeStatus());
             return result.getMergeResult().getMergeStatus();
+        } catch (TransportException ex) {
+            logger.error("Failed to Connect to Git", ex);
         }
+        return null;
     }
 }

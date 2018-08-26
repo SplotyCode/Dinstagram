@@ -8,6 +8,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.json.JSONObject;
+import org.omg.SendingContext.RunTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.constants.FileConstants;
@@ -61,6 +62,9 @@ public class Starter {
     private MavenHelper mavenHelper = new MavenHelper(FileConstants.getREPO());
     private ConfigClient configClient;
 
+    private ConfigProcess configProcess;
+    private MasterProcess masterProcess;
+
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
         instance = this;
         BasicConfigurator.configure();
@@ -86,14 +90,28 @@ public class Starter {
         }
         
         if (config) {
-            new ConfigProcess().start();
+            configProcess = new ConfigProcess();
+            configProcess.start();
         }
         configClient.setOnConfigChange(s -> logger.info("Config Updated!"));
         configClient.start();
         configClient.join();
 
-        new MasterProcess().start();
+        masterProcess = new MasterProcess();
+        masterProcess.start();
 
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Stopping Thread"));
+    }
+
+    private void stop() {
+        if (configProcess != null) {
+            configProcess.setShutdown(true);
+            configProcess.getProcess().destroy();
+        }
+        if (masterProcess != null) {
+            masterProcess.setShutdown(true);
+            masterProcess.getProcess().destroy();
+        }
     }
 
     private void prepareFolders() throws IOException {
