@@ -2,6 +2,7 @@ package team.gutterteam123.master;
 
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.BasicConfigurator;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ public class Master {
 
 
     private Master(String[] args) throws Exception {
+        BasicConfigurator.configure();
         new ArgumentBuilder().setObject(this).setInput(args).build();
 
         config = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
