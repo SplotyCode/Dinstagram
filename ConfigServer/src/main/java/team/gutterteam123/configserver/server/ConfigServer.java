@@ -4,6 +4,7 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.netlib.NetServer;
 import team.gutterteam123.netlib.Registrys;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;
@@ -24,7 +25,9 @@ public class ConfigServer extends NetServer<SerializedPacket> {
 
     @Override
     protected void onStart(ChannelFuture future) {
-
+        if (FileConstants.getCONFIG_SERVER_LOCK().exists()) {
+            FileConstants.getCONFIG_SERVER_LOCK().delete();
+        }
     }
 
     @Override

@@ -25,7 +25,7 @@ public class SyncServer extends NetServer {
 
     @Override
     protected void onStart(ChannelFuture future) {
-        
+
     }
 
     @Override

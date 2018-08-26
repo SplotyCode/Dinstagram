@@ -15,4 +15,6 @@ public final class FileConstants {
     @Getter private static final File LOG = new File(DINSTAGRAM, "logs/");
     @Getter private static final File MAVEN_LOG = new File(LOG, "mavenbuild.txt");
 
+    @Getter private static final File CONFIG_SERVER_LOCK = new File(DINSTAGRAM, "config_server.lock");
+
 }
