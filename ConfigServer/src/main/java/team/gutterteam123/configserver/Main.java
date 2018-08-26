@@ -10,7 +10,14 @@ public class Main {
 
     private Main() {
         BasicConfigurator.configure();
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Config Server close thread"));
         server.start();
+    }
+
+    private void stop() {
+        if (server != null) {
+            server.shutdown();
+        }
     }
 
     public static void main(String[] args) {

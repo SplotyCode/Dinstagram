@@ -1,5 +1,6 @@
 package team.gutterteam123.master.sync;
 
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,8 +23,8 @@ public class Sync {
 
     private List<String> addresses = new ArrayList<>();
 
-    private SyncClient client;
-    private SyncServer server;
+    @Getter private SyncClient client;
+    @Getter private SyncServer server;
 
     public Sync() {
         try {

@@ -11,6 +11,7 @@ import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
 import team.gutterteam123.baselib.util.NetUtil;
 import team.gutterteam123.database.DatabaseConnection;
+import team.gutterteam123.master.sync.Sync;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -21,7 +22,6 @@ public class Master {
     @Getter private static Master instance;
 
     private static final Logger logger = LoggerFactory.getLogger(Master.class);
-
 
     public static void main(String[] args) {
         try {
@@ -37,10 +37,14 @@ public class Master {
     @Getter private DatabaseConnection db;
     @Getter private JSONObject config;
 
+    @Getter private Sync sync;
+
 
     private Master(String[] args) throws Exception {
         BasicConfigurator.configure();
         new ArgumentBuilder().setObject(this).setInput(args).build();
+
+        sync = new Sync();
 
         config = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
 
@@ -48,6 +52,17 @@ public class Master {
 
         System.out.println(NetUtil.getRemoteIp());
 
+    }
+
+    private void stop() {
+        if (sync != null) {
+            if (sync.getClient() != null) {
+                sync.getClient().shutdown();
+            }
+            if (sync.getServer() != null) {
+                sync.getServer().shutdown();
+            }
+        }
     }
 
 }
