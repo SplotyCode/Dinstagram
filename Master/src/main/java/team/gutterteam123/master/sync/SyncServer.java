@@ -6,6 +6,8 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import lombok.Getter;
+import lombok.Setter;
 import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.master.Master;
 import team.gutterteam123.netlib.NetServer;
@@ -21,11 +23,15 @@ public class SyncServer extends NetServer {
         super(PortConstants.getMASTER_SYNC());
     }
 
+    @Getter @Setter private Runnable start;
+
     @Override protected void close(ChannelFuture future) {}
 
     @Override
     protected void onStart(ChannelFuture future) {
-
+        if (start != null) {
+            start.run();
+        }
     }
 
     @Override

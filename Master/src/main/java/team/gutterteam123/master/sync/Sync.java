@@ -57,10 +57,15 @@ public class Sync {
         logger.info("Best Root is {}", currentBest);
         if (currentBest.equals(NetUtil.getRemoteIp())) {
             server = new SyncServer();
+            server.setStart(() -> {
+                client = new SyncClient(currentBest);
+                client.start();
+            });
             server.start();
+        } else {
+            client = new SyncClient(currentBest);
+            client.start();
         }
-        client = new SyncClient(currentBest);
-        client.start();
 
         TaskManager.getInstance().registerTask(new TimerTask(true, () -> {
             String best = getBestRoot();
