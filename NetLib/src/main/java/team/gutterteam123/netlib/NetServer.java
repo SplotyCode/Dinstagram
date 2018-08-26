@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.util.ThreadUtil;
 import team.gutterteam123.netlib.packetbase.Packet;
 
+import java.util.concurrent.ThreadFactory;
+
 public abstract class NetServer<P extends Packet> extends Thread {
 
     private EventLoopGroup bossGroup, workerGroup;
@@ -45,9 +47,14 @@ public abstract class NetServer<P extends Packet> extends Thread {
     @Override
     public void run() {
         try {
+            Thread.currentThread().setName(getDisplayName() + " Client Thread");
             logger.info("Starting " + getDisplayName() + " under port " + port);
-            bossGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
-            workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
+
+            ThreadFactory factory = ThreadUtil.getThreadFactory(getDisplayName() + " worker group #%s");
+
+            bossGroup = epoll ? new EpollEventLoopGroup(0, factory) : new NioEventLoopGroup(0, factory);
+            workerGroup = epoll ? new EpollEventLoopGroup(0, factory) : new NioEventLoopGroup(0, factory);
+
             ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(bossGroup, workerGroup)
                     .channel(epoll ? EpollServerSocketChannel.class : NioServerSocketChannel.class)

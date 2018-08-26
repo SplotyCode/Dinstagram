@@ -17,6 +17,7 @@ import team.gutterteam123.baselib.util.ThreadUtil;
 import team.gutterteam123.netlib.packetbase.Packet;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.ThreadFactory;
 
 public abstract class NetClient<P extends Packet> extends Thread {
     
@@ -52,7 +53,9 @@ public abstract class NetClient<P extends Packet> extends Thread {
 
     @Override
     public void run() {
-        workerGroup = epoll ? new EpollEventLoopGroup() : new NioEventLoopGroup();
+        Thread.currentThread().setName(getDisplayName() + " Client Thread");
+        ThreadFactory factory = ThreadUtil.getThreadFactory(getDisplayName() + " worker group #%s");
+        workerGroup = epoll ? new EpollEventLoopGroup(0, factory) : new NioEventLoopGroup(0, factory);
         try {
             Bootstrap bootstrap = new Bootstrap()
                     .group(workerGroup)
