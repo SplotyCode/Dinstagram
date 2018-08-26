@@ -48,7 +48,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     @Override
     public void run() {
         try {
-            Thread.currentThread().setName(getDisplayName() + " Client Thread");
+            Thread.currentThread().setName(getDisplayName() + " Server Thread");
             logger.info("Starting " + getDisplayName() + " under port " + port);
 
             ThreadFactory factory = ThreadUtil.getThreadFactory(getDisplayName() + " worker group #%s");
