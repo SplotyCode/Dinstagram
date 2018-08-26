@@ -32,7 +32,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private boolean stoping = false;
+    private boolean stopping = false;
 
     public NetServer(int port) {
         this(port, Epoll.isAvailable());
@@ -83,7 +83,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
             logger.error("Error in NetServer", ex);
         }
 
-        if (stoping) return;
+        if (stopping) return;
 
         if (autoReconnect) {
             logger.info("{} Server is down! Restarting in 500ms", getDisplayName());
@@ -95,7 +95,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     }
 
     public void shutdown() {
-        stoping = true;
+        stopping = true;
         logger.info("Server {} is shutting down", getDisplayName());
         bossGroup.shutdownGracefully();
         workerGroup.shutdownGracefully();
