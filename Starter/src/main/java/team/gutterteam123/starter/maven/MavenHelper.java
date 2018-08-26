@@ -53,7 +53,7 @@ public class MavenHelper {
         invoker.setWorkingDirectory(file);
         invoker.setErrorHandler(stdOut);
         invoker.setOutputHandler(stdOut);
-        invoker.setMavenHome(new File("/usr/share/maven"));
+        invoker.setMavenHome(new File(FileConstants.getREPO(), "maven3/"));
         try {
             InvocationResult result = invoker.execute(request);
             logger.info("Maven Build ended with Exitcode: {}", result.getExitCode());
