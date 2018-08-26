@@ -2,11 +2,10 @@ package team.gutterteam123.configserver.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import lombok.Getter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import team.gutterteam123.baselib.FileConstants;
-import team.gutterteam123.baselib.util.Cache;
+import team.gutterteam123.baselib.cache.SimpleCache;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;
 import team.gutterteam123.netlib.packetbase.UnsupportedPacketException;
 import team.gutterteam123.netlib.packets.ConfigRequestUpdate;
@@ -18,8 +17,8 @@ import java.nio.charset.Charset;
 
 public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {
 
-    private Cache<String> hashCache = new Cache<String>(10 * 1000, this::getConfigHash);
-    private Cache<String> configCache = new Cache<String>(10 * 1000, () -> {
+    private SimpleCache<String> hashCache = new SimpleCache<String>(10 * 1000, this::getConfigHash);
+    private SimpleCache<String> configCache = new SimpleCache<String>(10 * 1000, () -> {
         try {
             return FileUtils.readFileToString(FileConstants.getCONFIG_SERVER(), Charset.forName("Utf-8"));
         } catch (IOException e) {

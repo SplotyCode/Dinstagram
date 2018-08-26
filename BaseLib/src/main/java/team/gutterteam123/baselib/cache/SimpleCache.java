@@ -1,8 +1,8 @@
-package team.gutterteam123.baselib.util;
+package team.gutterteam123.baselib.cache;
 
 import java.util.function.Supplier;
 
-public class Cache<T> {
+public class SimpleCache<T> {
 
     private long time;
     private T value;
@@ -10,16 +10,15 @@ public class Cache<T> {
 
     private Supplier<T> objectGetter;
 
-    public Cache(long time, T value) {
+    public SimpleCache(long time, T value) {
         this.time = time;
         this.value = value;
         started = System.currentTimeMillis();
     }
 
-    public Cache(long time, Supplier<T> objectGetter) {
+    public SimpleCache(long time, Supplier<T> objectGetter) {
         this.time = time;
         this.objectGetter = objectGetter;
-        value = objectGetter.get();
     }
 
     public T get() {
