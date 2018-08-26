@@ -42,7 +42,8 @@ public class Sync {
                 System.out.println("b " + country.getString("name"));
                 if (country.
                         getString("name").
-                        equals(Master.getInstance().
+                        equals(Master.
+                                getInstance().
                                 servergroup)) {
                     JSONArray roots = country.getJSONArray("roots");
                     for (int j = 0; j < roots.length(); j++) {
