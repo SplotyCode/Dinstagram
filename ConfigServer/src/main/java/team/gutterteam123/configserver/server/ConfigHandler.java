@@ -53,4 +53,9 @@ public class ConfigHandler extends SimpleChannelInboundHandler<SerializedPacket>
         }
         return "";
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+    }
 }
