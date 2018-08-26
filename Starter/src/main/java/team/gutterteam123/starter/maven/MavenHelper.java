@@ -26,6 +26,6 @@ public class MavenHelper {
     }
 
     public void install(File file) {
-        cli.doMain(new String[]{"clean", "install"}, file.getAbsolutePath(), System.out, System.err);
+        cli.doMain(new String[]{"-Dmaven.multiModuleProjectDirectory=" + file.getAbsolutePath(), "clean", "install"}, file.getAbsolutePath(), System.out, System.err);
     }
 }
