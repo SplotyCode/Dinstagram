@@ -89,6 +89,8 @@ public abstract class NetClient<P extends Packet> extends Thread {
         }
     }
 
-
+    public void shutdown() {
+        workerGroup.shutdownGracefully();
+    }
 
 }

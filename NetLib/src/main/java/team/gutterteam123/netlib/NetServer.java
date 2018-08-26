@@ -80,4 +80,10 @@ public abstract class NetServer<P extends Packet> extends Thread {
             logger.info("{} Server is down! No Reconnecting!", getDisplayName());
         }
     }
+
+    public void shutdown() {
+        bossGroup.shutdownGracefully();
+        workerGroup.shutdownGracefully();
+    }
+
 }
