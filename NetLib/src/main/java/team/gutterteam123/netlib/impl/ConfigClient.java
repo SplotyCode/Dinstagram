@@ -31,7 +31,6 @@ public class ConfigClient extends NetClient {
 
     public ConfigClient(InetSocketAddress address) {
         super(address);
-        setAutoReconnectWithoutException(false);
     }
 
     @Override protected void onClose(Future future) {}

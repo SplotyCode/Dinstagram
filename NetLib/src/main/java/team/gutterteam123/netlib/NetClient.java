@@ -41,7 +41,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
 
     @Getter @Setter protected boolean keepAlive = true;
     @Getter @Setter protected boolean autoReconnect = true;
-    @Getter @Setter protected boolean autoReconnectWithoutException = true;
+    @Getter @Setter protected boolean autoReconnectWithoutException = false;
     @Getter @Setter protected float reconnectMulti = 1.5f;
     @Getter @Setter protected long reconnectMax = 30 * 1000;
     @Getter @Setter protected long reconnectStart = 5 * 1000;
