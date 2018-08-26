@@ -51,12 +51,12 @@
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
-            <version>4.11.0.201803080745-r</version>
+            <version>5.0.2.201807311906-r</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-embedder</artifactId>
-            <version>3.1.1</version>
+            <version>3.5.4</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.aether</groupId>
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>org.apache.maven.wagon</groupId>
             <artifactId>wagon-http-lightweight</artifactId>
-            <version>2.5</version>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>team.gutterteam123.distagram</groupId>
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20180130</version>
+            <version>20180813</version>
         </dependency>
     </dependencies>
 
