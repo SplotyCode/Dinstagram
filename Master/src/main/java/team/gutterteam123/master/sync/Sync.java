@@ -53,6 +53,7 @@ public class Sync {
         logger.info("Loaded " + addresses.size() + " roots!");
 
         currentBest = getBestRoot();
+        logger.info("Best Root is {}", currentBest);
         if (currentBest.equals(NetUtil.getRemoteIp())) {
             server = new SyncServer();
             server.start();
