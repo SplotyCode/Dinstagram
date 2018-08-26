@@ -9,13 +9,26 @@ import team.gutterteam123.baselib.constants.UrlConstants;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.URL;
 
 public final class NetUtil {
 
     private static Logger logger = LoggerFactory.getLogger(NetUtil.class);
 
-    private static SimpleCache<String> remoteIp = new SimpleCache<String>(TimeConstants.getREMOTE_IP_CACHE(), NetUtil::loadRemoteIp);
+    private static SimpleCache<String> remoteIp = new SimpleCache<>(TimeConstants.getREMOTE_IP_CACHE(), NetUtil::loadRemoteIp);
+    private static SimpleCache<String> localIp = new SimpleCache<>(TimeConstants.getLOCAL_IP_CACHE(), NetUtil::loadLocalIp);
+
+    private static String loadLocalIp() {
+        try(final DatagramSocket socket = new DatagramSocket()){
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            return socket.getLocalAddress().getHostAddress();
+        } catch (IOException ex) {
+            logger.error("Failed to get Local Ip Address", ex);
+        }
+        return null;
+    }
 
     private static String loadRemoteIp() {
         try {
@@ -41,6 +54,10 @@ public final class NetUtil {
 
     public static String getRemoteIp() {
         return remoteIp.get();
+    }
+
+    public static String getLocalIp() {
+        return localIp.get();
     }
 
 }
