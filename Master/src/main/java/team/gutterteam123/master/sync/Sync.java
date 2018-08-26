@@ -42,6 +42,7 @@ public class Sync {
                     JSONArray roots = country.getJSONArray("roots");
                     for (int j = 0; j < roots.length(); j++) {
                         addresses.add(roots.getString(j));
+                        logger.info("Added Root " + roots.getString(j));
                     }
                     break;
                 }
@@ -49,6 +50,7 @@ public class Sync {
         } catch (IOException ex) {
             logger.error("Could not Parse Json Config!", ex);
         }
+        logger.info("Loaded " + addresses.size() + " roots!");
 
         currentBest = getBestRoot();
         if (currentBest.equals(NetUtil.getRemoteIp())) {
