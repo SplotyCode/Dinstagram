@@ -11,6 +11,7 @@ import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.database.DatabaseConnection;
+import team.gutterteam123.master.config.Config;
 import team.gutterteam123.master.sync.Sync;
 
 import java.nio.charset.Charset;
@@ -33,7 +34,9 @@ public class Master {
     public String servergroup;
 
     @Getter private DatabaseConnection db;
-    @Getter private JSONObject config;
+
+    @Getter private JSONObject rawConfig;
+    @Getter private Config config;
 
     @Getter private Sync sync;
 
@@ -48,11 +51,13 @@ public class Master {
         new ArgumentBuilder().setObject(this).setInput(args).build();
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Master Stopping Thread"));
+
         sync = new Sync();
 
-        config = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
+        rawConfig = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
+        config = new Config(rawConfig);
 
-        db = new DatabaseConnection(config.getString("mongo"));
+        db = new DatabaseConnection(rawConfig.getString("mongo"));
     }
 
     private void stop() {

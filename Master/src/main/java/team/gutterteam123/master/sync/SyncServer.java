@@ -12,10 +12,13 @@ import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.master.Master;
 import team.gutterteam123.netlib.NetServer;
 import team.gutterteam123.netlib.Registrys;
+import team.gutterteam123.netlib.handler.RootAuthHandler;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;
 import team.gutterteam123.netlib.packetbase.SerializedPacketDecoder;
 import team.gutterteam123.netlib.packetbase.SerializedPacketEncoder;
 import team.gutterteam123.netlib.packets.MasterSyncDestroy;
+
+import java.util.Set;
 
 public class SyncServer extends NetServer {
 
@@ -43,7 +46,7 @@ public class SyncServer extends NetServer {
         pipeline.addLast(new ServerHandler());
     }
 
-    public class ServerHandler extends SimpleChannelInboundHandler<SerializedPacket> {
+    public class ServerHandler extends RootAuthHandler<SerializedPacket> {
 
         @Override
         protected void channelRead0(ChannelHandlerContext channelHandlerContext, SerializedPacket packet) throws Exception {
@@ -57,8 +60,8 @@ public class SyncServer extends NetServer {
         }
 
         @Override
-        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            super.exceptionCaught(ctx, cause);
+        protected Set<String> getRoots() {
+            return Master.getInstance().getConfig().getRoots();
         }
     }
 
