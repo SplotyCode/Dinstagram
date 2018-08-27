@@ -14,7 +14,11 @@ public abstract class RootAuthHandler<P extends Packet> extends SimpleChannelInb
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(ctx.channel().remoteAddress().toString());
+        String address = ctx.channel().remoteAddress().toString().substring(1).split(":")[0];
+        if (!getRoots().contains(address)) {
+            logger.info("Kicked {}", address);
+            ctx.channel().close();
+        }
     }
 
     protected abstract Set<String> getRoots();

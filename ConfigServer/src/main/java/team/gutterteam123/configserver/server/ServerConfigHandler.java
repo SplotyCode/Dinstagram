@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.cache.SimpleCache;
 import team.gutterteam123.baselib.constants.TimeConstants;
+import team.gutterteam123.configserver.Main;
+import team.gutterteam123.netlib.handler.RootAuthHandler;
 import team.gutterteam123.netlib.packetbase.SerializedPacket;
 import team.gutterteam123.netlib.packetbase.UnsupportedPacketException;
 import team.gutterteam123.netlib.packets.ConfigNoUpdate;
@@ -18,8 +20,9 @@ import team.gutterteam123.netlib.packets.ConfigUpdate;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Set;
 
-public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedPacket> {
+public class ServerConfigHandler extends RootAuthHandler<SerializedPacket> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -61,6 +64,11 @@ public class ServerConfigHandler extends SimpleChannelInboundHandler<SerializedP
             logger.error("Could not generate config hash", ex);
         }
         return "";
+    }
+
+    @Override
+    protected Set<String> getRoots() {
+        return Main.getInstance().getRoots();
     }
 
     @Override
