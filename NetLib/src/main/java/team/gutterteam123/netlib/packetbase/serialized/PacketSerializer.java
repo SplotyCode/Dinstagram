@@ -1,4 +1,4 @@
-package team.gutterteam123.netlib.packetbase;
+package team.gutterteam123.netlib.packetbase.serialized;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -6,6 +6,7 @@ import io.netty.buffer.ByteBufProcessor;
 import io.netty.handler.codec.DecoderException;
 import io.netty.util.ByteProcessor;
 import io.netty.util.CharsetUtil;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,7 +1,7 @@
 package team.gutterteam123.netlib.packets;
 
-import team.gutterteam123.netlib.packetbase.PacketSerializer;
-import team.gutterteam123.netlib.packetbase.SerializedPacket;
+import team.gutterteam123.netlib.packetbase.serialized.PacketSerializer;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
 
 public class ConfigNoUpdate implements SerializedPacket {
 

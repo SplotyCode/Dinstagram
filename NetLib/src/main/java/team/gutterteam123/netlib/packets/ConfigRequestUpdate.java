@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import team.gutterteam123.netlib.packetbase.PacketSerializer;
-import team.gutterteam123.netlib.packetbase.SerializedPacket;
+import team.gutterteam123.netlib.packetbase.serialized.PacketSerializer;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,9 +1,10 @@
-package team.gutterteam123.netlib.packetbase;
+package team.gutterteam123.netlib.packetbase.serialized;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import lombok.AllArgsConstructor;
+import team.gutterteam123.netlib.packetbase.PacketRegistry;
 
 import java.util.List;
 

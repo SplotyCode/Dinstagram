@@ -7,21 +7,24 @@ import lombok.Setter;
 import team.gutterteam123.netlib.packetbase.serialized.PacketSerializer;
 import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class MasterSyncDestroy implements SerializedPacket {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProxyBalancerResponse implements SerializedPacket {
 
-    private String betterRoot;
+    private String address;
+    private int port;
 
     @Override
     public void read(PacketSerializer packet) {
-        betterRoot = packet.readString();
+        address = packet.readString();
+        port = packet.readVarInt();
     }
 
     @Override
     public void write(PacketSerializer packet) {
-        packet.writeString(betterRoot);
+        packet.writeString(address);
+        packet.writeVarInt(port);
     }
 }

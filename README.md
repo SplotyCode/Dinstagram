@@ -19,3 +19,4 @@ maven-embedder (3.5.4)<br>
 jgit (5.0.2.201807311906-r)<br>
 slf4j (log4j12) (1.7.25)<br>
 maven-invoker (2.0.11)<br>
+Gson (2.8.0)

@@ -7,9 +7,9 @@ import io.netty.handler.codec.LengthFieldPrepender;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.netlib.NetServer;
 import team.gutterteam123.netlib.Registrys;
-import team.gutterteam123.netlib.packetbase.SerializedPacket;
-import team.gutterteam123.netlib.packetbase.SerializedPacketDecoder;
-import team.gutterteam123.netlib.packetbase.SerializedPacketEncoder;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacketDecoder;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacketEncoder;
 
 public class ConfigServer extends NetServer<SerializedPacket> {
 

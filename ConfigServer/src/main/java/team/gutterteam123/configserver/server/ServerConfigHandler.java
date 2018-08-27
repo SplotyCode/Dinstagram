@@ -1,7 +1,6 @@
 package team.gutterteam123.configserver.server;
 
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -11,7 +10,7 @@ import team.gutterteam123.baselib.cache.SimpleCache;
 import team.gutterteam123.baselib.constants.TimeConstants;
 import team.gutterteam123.configserver.Main;
 import team.gutterteam123.netlib.handler.RootAuthHandler;
-import team.gutterteam123.netlib.packetbase.SerializedPacket;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
 import team.gutterteam123.netlib.packetbase.UnsupportedPacketException;
 import team.gutterteam123.netlib.packets.ConfigNoUpdate;
 import team.gutterteam123.netlib.packets.ConfigRequestUpdate;

@@ -66,6 +66,7 @@
     <orderEntry type="module" module-name="NetLib" />
     <orderEntry type="library" name="Maven: io.netty:netty-all:4.1.29.Final" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20180813" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.shared:maven-invoker:2.0.11" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.2" level="project" />

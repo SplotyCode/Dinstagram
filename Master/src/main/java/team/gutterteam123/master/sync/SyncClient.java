@@ -11,10 +11,9 @@ import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.netlib.NetClient;
 import team.gutterteam123.netlib.Registrys;
-import team.gutterteam123.netlib.packetbase.SerializedPacket;
-import team.gutterteam123.netlib.packetbase.SerializedPacketDecoder;
-import team.gutterteam123.netlib.packetbase.SerializedPacketEncoder;
-import team.gutterteam123.netlib.packets.MasterSyncDestroy;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacketDecoder;
+import team.gutterteam123.netlib.packetbase.serialized.SerializedPacketEncoder;
 
 import java.net.InetSocketAddress;
 
