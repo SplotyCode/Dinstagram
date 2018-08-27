@@ -43,7 +43,7 @@ public final class NetUtil {
                 }
             }
         }
-        return null;
+        return "127.0.0.1";
     }
 
     private static String loadRemoteFromSite(String url) throws IOException {
