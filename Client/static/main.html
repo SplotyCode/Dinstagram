@@ -51,13 +51,13 @@
         </script>
     </head>
     <body>
-        <iframe id="content" src="feed.html"></iframe>
+        <iframe id="content" src="feed.html" name="main_frame"></iframe>
         <footer class="noselect" unselectable="on" onselectstart="return false;" onmousedown="return false;">
-            <i onclick="setUrl('feed.html')" class="icon-feed"></i>
-            <i onclick="setUrl('search.html')" class="icon-search"></i>
-            <i class="icon-upload"></i>
-            <i onclick="setUrl('chats.html')" class="icon-chat notification" data-notification="4"></i>
-            <i onclick="setUrl('profile.html')" class="icon-profile"></i>
+            <a class="no-link no-link-black" href="feed.html" target="main_frame"><i class="icon-feed"></i></a>
+            <a class="no-link no-link-black" href="search.html" target="main_frame"><i class="icon-search"></i></a>
+            <i id="addpoast" class="icon-upload"></i>
+            <a class="no-link no-link-black" href="chats.html" target="main_frame"><i class="icon-chat notification" data-notification="4"></i></a>
+            <a class="no-link no-link-black" href="profile.html" target="main_frame"><i class="icon-profile"></i></a>
         </footer>
     </body>
 </html>
