@@ -21,7 +21,7 @@ public class ConfigServer extends NetServer<SerializedPacket> {
         super(port, epoll);
     }
 
-    @Override protected void close(ChannelFuture future) {}
+    @Override protected void onClose(ChannelFuture future) {}
 
     @Override
     protected void onStart(ChannelFuture future) {

@@ -37,7 +37,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
     }
 
     private EventLoopGroup workerGroup;
-    private Channel channel;
+    @Getter private Channel channel;
 
     @Getter @Setter protected boolean keepAlive = true;
     @Getter @Setter protected boolean autoReconnect = true;
@@ -104,6 +104,7 @@ public abstract class NetClient<P extends Packet> extends Thread {
     }
 
     public void shutdown() {
+        channel.close();
         workerGroup.shutdownGracefully();
     }
 

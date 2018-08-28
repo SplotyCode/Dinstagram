@@ -22,7 +22,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     private EventLoopGroup bossGroup, workerGroup;
     private Channel channel;
 
-    protected abstract void close(ChannelFuture future);
+    protected abstract void onClose(ChannelFuture future);
     protected abstract void onStart(ChannelFuture future);
     protected abstract void onChannelCreation(ChannelPipeline pipeline);
     protected abstract String getDisplayName();
@@ -75,7 +75,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
                 bossGroup.shutdownGracefully();
                 workerGroup.shutdownGracefully();
             });
-            future.addListener((ChannelFutureListener) this::close);
+            future.addListener((ChannelFutureListener) this::onClose);
             onStart(future);
             logger.info("Started {} under port {}!", getDisplayName(), port);
             future.sync();
@@ -97,6 +97,7 @@ public abstract class NetServer<P extends Packet> extends Thread {
     public void shutdown() {
         stopping = true;
         logger.info("Server {} is shutting down", getDisplayName());
+        channel.close();
         bossGroup.shutdownGracefully();
         workerGroup.shutdownGracefully();
     }

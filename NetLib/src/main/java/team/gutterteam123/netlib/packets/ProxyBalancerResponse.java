@@ -1,30 +1,12 @@
 package team.gutterteam123.netlib.packets;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import team.gutterteam123.netlib.packetbase.serialized.PacketSerializer;
-import team.gutterteam123.netlib.packetbase.serialized.SerializedPacket;
+import lombok.Data;
+import team.gutterteam123.netlib.packetbase.json.JsonPacket;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class ProxyBalancerResponse implements SerializedPacket {
+@Data
+public class ProxyBalancerResponse implements JsonPacket {
 
     private String address;
     private int port;
 
-    @Override
-    public void read(PacketSerializer packet) {
-        address = packet.readString();
-        port = packet.readVarInt();
-    }
-
-    @Override
-    public void write(PacketSerializer packet) {
-        packet.writeString(address);
-        packet.writeVarInt(port);
-    }
 }

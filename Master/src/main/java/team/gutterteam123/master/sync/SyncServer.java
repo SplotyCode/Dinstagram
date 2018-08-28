@@ -27,7 +27,7 @@ public class SyncServer extends NetServer {
 
     @Getter @Setter private Runnable start;
 
-    @Override protected void close(ChannelFuture future) {}
+    @Override protected void onClose(ChannelFuture future) {}
 
     @Override
     protected void onStart(ChannelFuture future) {
