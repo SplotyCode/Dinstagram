@@ -17,7 +17,7 @@ public class PostObj implements DatabaseObj {
     protected String messages;
     protected long imageId;
     protected long likesInt;
-    protected static Set<Integer> idOfLikers;
+    protected static Set<Long> idOfLikers;
     protected long commentsInt;
     protected static List<String> comment;
     protected static List<String> authorOfComment;
@@ -27,7 +27,7 @@ public class PostObj implements DatabaseObj {
         messages = document.getString("messages");
         imageId = document.getInteger("imageId");
         likesInt = document.getInteger("likesInt");
-        idOfLikers = (Set<Integer>) document.get("idOfLikers");
+        idOfLikers = (Set<Long>) document.get("idOfLikers");
         commentsInt = document.getInteger("commentsInt");
         comment = (List<String>)document.get("comment");
         comment = (List<String>)document.get("authorOfComment");
@@ -84,18 +84,6 @@ public class PostObj implements DatabaseObj {
             return Arrays.asList(rules).contains(ALL);
         }
 
-    }
-    public enum AccessRuleSetInt{
-        IDOFLIKERS(idOfLikers),ALL(null);
-        @Getter
-        protected final Set<Integer> field;
-
-        AccessRuleSetInt(Set<Integer> field){
-            this.field = field;
-        }
-        public boolean ContainsAll(ImageObj.AccessRuleSetInt rules){
-            return field.contains(ALL);
-        }
     }
     public enum AccessRuleSetString{
         COMMENT(comment),AUTHOROFCOMMENT(authorOfComment),ALL(null);

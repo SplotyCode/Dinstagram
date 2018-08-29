@@ -17,12 +17,12 @@ import java.util.Set;
 public class UserObj implements DatabaseObj {
 
     protected String name, password;
-    protected static int userId;
-    protected static Set<Integer> following;
-    protected static Set<Integer> follower;
-    protected static int followerInt, followingInt, postsInt;
-    protected static int lastPost;
-    protected static Set<Integer> posts;
+    protected long userId;
+    protected Set<Long> following;
+    protected Set<Long> follower;
+    protected int followerInt, followingInt, postsInt;
+    protected long lastPost;
+    protected Set<Long> posts;
 
 
     @Override
@@ -30,13 +30,13 @@ public class UserObj implements DatabaseObj {
         name = document.getString("name");
         password = document.getString("password");
         userId = document.getInteger("userId");
-        following = (Set<Integer>) document.get("following", Set.class);
-        follower = (Set<Integer>) document.get("follower", Set.class);
+        following = (Set<Long>) document.get("following", Set.class);
+        follower = (Set<Long>) document.get("follower", Set.class);
         followerInt = document.getInteger("followerInt");
         followingInt = document.getInteger("followingInt");
         postsInt = document.getInteger("postsInt");
         lastPost = document.getInteger("lastPost");
-        posts = (Set<Integer>) document.get("posts", Set.class);
+        posts = (Set<Long>) document.get("posts", Set.class);
 
     }
 
@@ -74,7 +74,8 @@ public class UserObj implements DatabaseObj {
         }
     }
     public enum AccessRuleInt{
-        POSTSINT(postsInt), FOLLOWINGINT(followingInt), FOLLOWERINT(followerInt), LASTPOST(lastPost), USERID(userId),ALL(0);
+        //POSTSINT(postsInt), FOLLOWINGINT(followingInt), FOLLOWERINT(followerInt), LASTPOST(lastPost), USERID(userId),ALL(0);
+        ;
         @Getter
         protected final int field;
 
@@ -91,24 +92,12 @@ public class UserObj implements DatabaseObj {
 
         }
         public boolean ContainsAll(PostObj.AccessRuleInt... rules){
-            return Arrays.asList(rules).contains(ALL);
+            //return Arrays.asList(rules).contains(ALL);
+            return true;
         }
 
 
     }
-
-public enum AccessRuleSetInt{
-    FOLLOWING(following),FOLLOWER(follower),POSTS(posts),ALL(null);
-    @Getter
-    protected final Set<Integer> field;
-
-    AccessRuleSetInt(Set<Integer> field){
-        this.field = field;
-    }
-    public boolean ContainsAll(ImageObj.AccessRuleSetInt rules){
-        return field.contains(ALL);
-    }
-}
 
 
 

@@ -12,32 +12,23 @@ import java.util.*;
 public class ImageObj implements DatabaseObj {
 
     protected long imageId;
-    protected long likesInt;
-    protected Set<Integer> idOfLikers;
-    protected List<String> comment, authorOfComment;
-    protected long commentsInt;
+    private String hash;
+    private String base64;
 
     @Override
     public void read(Document document) {
         imageId = document.getInteger("imageId");
-        likesInt = document.getInteger("likesInt");
-        idOfLikers = (Set<Integer>) document.get("idOfLikers");
-        commentsInt = document.getInteger("commentsInt");
-        comment = (List<String>)document.get("comment");
-        comment = (List<String>)document.get("authorOfComment");
+        hash = document.getString("hash");
+        base64 = document.getString("base64");
     }
 
     
 
     @Override
     public void write(Document document) {
-        document.put("imageId",imageId);
-        document.put("likesInt",likesInt);
-        document.put("idOfLikers",idOfLikers);
-        document.put("commentsInt",commentsInt);
-        document.put("comment",comment);
-        document.put("authorOfComment",authorOfComment);
-
+        document.put("imageId", imageId);
+        document.put("hash", hash);
+        document.put("base64", base64);
     }
     public enum AccessRuleInt {
         IMAGEID(0),LIKESINT(0),COMMENTSINT(0),ALL(0);
