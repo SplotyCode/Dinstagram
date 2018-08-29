@@ -13,6 +13,6 @@ public class MasterProcess extends ProcessThread {
 
     @Override
     protected void startProcess() throws IOException {
-        executeProccess(FileConstants.getDINSTAGRAM(), "java", "-jar", "Master.jar", "-servergroup", Starter.getInstance().serverGroup);
+        executeProccess(FileConstants.getDINSTAGRAM(), "java", "-jar", "-Xms" + Starter.getInstance().getConfigHelper().getMinRam(), "-Xmx" + Starter.getInstance().getConfigHelper().getMaxRam(), "Master.jar", "-servergroup", Starter.getInstance().serverGroup);
     }
 }

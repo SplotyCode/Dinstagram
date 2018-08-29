@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.omg.SendingContext.RunTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import team.gutterteam123.baselib.config.ConfigHelper;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.constants.PortConstants;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
@@ -68,6 +69,8 @@ public class Starter {
     private ConfigProcess configProcess;
     private MasterProcess masterProcess;
 
+    @Getter private ConfigHelper configHelper;
+
     private Starter(String[] args) throws IOException, GitAPIException, InterruptedException {
         instance = this;
         Thread.currentThread().setName("Starter - Main Thread");
@@ -112,6 +115,7 @@ public class Starter {
         configClient.start();
         configClient.join();
 
+        configHelper = new ConfigHelper(serverGroup);
         masterProcess = new MasterProcess();
         masterProcess.start();
 

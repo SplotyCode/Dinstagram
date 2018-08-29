@@ -11,5 +11,6 @@ public class MasterToBaseLinked {
 
     private MasterToBaseLinked() {}
 
-    @Getter @Setter private Supplier<String> serverGroup;
+    //@Getter @Setter private Supplier<String> serverGroup;
+
 }

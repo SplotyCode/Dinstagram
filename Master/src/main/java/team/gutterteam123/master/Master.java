@@ -68,7 +68,7 @@ public class Master {
 
     private void setupLibLinks() {
         MasterToNetLibLinked.getInstance().setRoots(() -> config.getRoots());
-        MasterToBaseLinked.getInstance().setServerGroup(() -> serverGroup);
+        //MasterToBaseLinked.getInstance().setServerGroup(() -> serverGroup);
     }
 
     private void stop() {
