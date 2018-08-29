@@ -46,7 +46,7 @@ public class ConfigHelper {
             JSONArray array = json.getJSONArray("country");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject country = array.getJSONObject(i);
-                if (country.getString("name").equals(MasterToBaseLinked.getInstance().getServerGroup().get())) {
+                if (country.getString("name").equals(this.country)) {
                     JSONArray roots = country.getJSONArray("roots");
                     for (int j = 0; j < roots.length(); j++) {
                         set.add(roots.getString(j));
