@@ -2,10 +2,9 @@ package team.gutterteam123.netlib.handler;
 
 import com.google.common.reflect.ClassPath;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.gutterteam123.netlib.linked.MasterLinked;
+import team.gutterteam123.netlib.linked.MasterToNetLibLinked;
 import team.gutterteam123.netlib.packetbase.json.JsonPacket;
 
 import java.io.IOException;
@@ -47,6 +46,6 @@ public class ContentHandler extends RootAuthHandler<JsonPacket> {
 
     @Override
     protected Set<String> getRoots() {
-        return MasterLinked.getInstance().getRoots().get();
+        return MasterToNetLibLinked.getInstance().getRoots().get();
     }
 }

@@ -9,11 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
+import team.gutterteam123.baselib.config.ConfigHelper;
 import team.gutterteam123.baselib.constants.FileConstants;
+import team.gutterteam123.baselib.linked.MasterToBaseLinked;
 import team.gutterteam123.database.DatabaseConnection;
 import team.gutterteam123.master.config.Config;
 import team.gutterteam123.master.sync.Sync;
-import team.gutterteam123.netlib.linked.MasterLinked;
+import team.gutterteam123.netlib.linked.MasterToNetLibLinked;
 
 import java.nio.charset.Charset;
 
@@ -32,12 +34,13 @@ public class Master {
     }
 
     @Parameter(name = "servergroup", needed = true)
-    public String servergroup;
+    public String serverGroup;
 
     @Getter private DatabaseConnection db;
 
     @Getter private JSONObject rawConfig;
     @Getter private Config config;
+    @Getter private ConfigHelper configHelper;
 
     @Getter private Sync sync;
 
@@ -45,7 +48,7 @@ public class Master {
     private Master(String[] args) throws Exception {
         Thread.currentThread().setName("Master - Main Thread");
         instance = this;
-        setupNetLib();
+        setupLibLinks();
 
         BasicConfigurator.configure();
         org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
@@ -54,16 +57,18 @@ public class Master {
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Master Stopping Thread"));
 
-        sync = new Sync();
-
         rawConfig = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
         config = new Config(rawConfig);
+        configHelper = new ConfigHelper(serverGroup);
+
+        sync = new Sync();
 
         db = new DatabaseConnection(rawConfig.getString("mongo"));
     }
 
-    private void setupNetLib() {
-        MasterLinked.getInstance().setRoots(() -> config.getRoots());
+    private void setupLibLinks() {
+        MasterToNetLibLinked.getInstance().setRoots(() -> config.getRoots());
+        MasterToBaseLinked.getInstance().setServerGroup(() -> serverGroup);
     }
 
     private void stop() {

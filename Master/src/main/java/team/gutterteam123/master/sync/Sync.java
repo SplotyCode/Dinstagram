@@ -27,30 +27,14 @@ public class Sync {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private List<String> addresses = new ArrayList<>();
+    private List<String> addresses;
     private String currentBest;
 
     @Setter @Getter private SyncClient client;
     @Getter private SyncServer server;
 
     public Sync() {
-        try {
-            JSONObject json = new JSONObject(FileUtils.readFileToString(FileConstants.getCONFIG(), Charset.forName("Utf-8")));
-            JSONArray array = json.getJSONArray("country");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject country = array.getJSONObject(i);
-                if (country.getString("name").equals(Master.getInstance().servergroup)) {
-                    JSONArray roots = country.getJSONArray("roots");
-                    for (int j = 0; j < roots.length(); j++) {
-                        addresses.add(roots.getString(j));
-                        logger.info("Added Root: " + roots.getString(j));
-                    }
-                    break;
-                }
-            }
-        } catch (IOException ex) {
-            logger.error("Could not Parse Json Config!", ex);
-        }
+        addresses = new ArrayList<>(Master.getInstance().getConfigHelper().collectCountryRoots());
         logger.info("Loaded " + addresses.size() + " roots!");
 
         currentBest = getBestRoot();
