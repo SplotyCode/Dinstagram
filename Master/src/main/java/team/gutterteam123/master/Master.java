@@ -12,9 +12,12 @@ import team.gutterteam123.baselib.argparser.Parameter;
 import team.gutterteam123.baselib.config.ConfigHelper;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.linked.MasterToBaseLinked;
+import team.gutterteam123.baselib.tasks.TaskManager;
 import team.gutterteam123.database.DatabaseConnection;
 import team.gutterteam123.master.config.Config;
 import team.gutterteam123.master.sync.Sync;
+import team.gutterteam123.master.sync.SyncClient;
+import team.gutterteam123.master.tasks.UpdateStatusTask;
 import team.gutterteam123.netlib.linked.MasterToNetLibLinked;
 
 import java.nio.charset.Charset;
@@ -64,6 +67,8 @@ public class Master {
         sync = new Sync();
 
         db = new DatabaseConnection(rawConfig.getString("mongo"));
+
+        TaskManager.getInstance().registerTask(new UpdateStatusTask());
     }
 
     private void setupLibLinks() {
@@ -80,6 +85,10 @@ public class Master {
                 sync.getServer().shutdown();
             }
         }
+    }
+
+    public SyncClient getClient() {
+        return sync.getClient();
     }
 
 }

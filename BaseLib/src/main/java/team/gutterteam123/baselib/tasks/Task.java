@@ -8,7 +8,7 @@ public abstract class Task {
 
     @Getter
     private final boolean async;
-    protected final Runnable runnable;
+    protected Runnable runnable;
 
     abstract boolean isReady();
 

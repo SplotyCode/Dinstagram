@@ -14,4 +14,8 @@ public final class TimeConstants {
     @Getter private static final long SYNC_UPDATE = /* 45 Seconds */ 45 * 1000;
     @Getter private static final int SYNC_TIMEOUT = /* 3 Seconds */ 3 * 1000;
 
+    @Getter private static final long UPLOAD_STATUS_DELAY = /* 15 Seconds */ 15 * 1000;
+    @Getter private static final long MIN_STATUS_UPDATE_INTERVAL = /* 20 Seconds */ 20 * 1000;
+    @Getter private static final long MAX_STATUS_UPDATE_INTERVAL = /* 20 Seconds */ 45 * 1000;
+
 }

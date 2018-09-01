@@ -25,6 +25,6 @@ public abstract class RootAuthHandler<P extends Packet> extends SimpleChannelInb
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        logger.error("Exception catched in last Handler", cause);
+        logger.error("Exception cached in last Handler", cause);
     }
 }
