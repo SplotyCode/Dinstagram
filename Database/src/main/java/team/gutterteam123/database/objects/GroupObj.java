@@ -3,7 +3,6 @@ package team.gutterteam123.database.objects;
 import org.bson.Document;
 import team.gutterteam123.database.DatabaseObj;
 
-import java.util.List;
 import java.util.Map;
 
 public class GroupObj implements DatabaseObj {

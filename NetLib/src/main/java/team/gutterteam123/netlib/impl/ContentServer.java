@@ -4,12 +4,15 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelPipeline;
 import team.gutterteam123.netlib.NetServer;
 import team.gutterteam123.netlib.Registrys;
+import team.gutterteam123.netlib.handler.ConnectionCounter;
 import team.gutterteam123.netlib.handler.ContentHandler;
 import team.gutterteam123.netlib.impl.proxyserver.ProxyOutgoingServer;
 import team.gutterteam123.netlib.packetbase.json.JsonPacketDecoder;
 import team.gutterteam123.netlib.packetbase.json.JsonPacketEncoder;
 
 public class ContentServer extends NetServer {
+
+    private ConnectionCounter counter;
 
     public ContentServer(int port) {
         super(port);
@@ -21,9 +24,14 @@ public class ContentServer extends NetServer {
 
     @Override
     protected void onChannelCreation(ChannelPipeline pipeline) {
+        pipeline.addLast(counter);
         pipeline.addLast(new JsonPacketEncoder(Registrys.getInstance().getContentIn()));
         pipeline.addLast(new JsonPacketDecoder(Registrys.getInstance().getContentOut()));
         pipeline.addLast(new ContentHandler());
+    }
+
+    public int currentConnections() {
+        return counter.getCount();
     }
 
     @Override

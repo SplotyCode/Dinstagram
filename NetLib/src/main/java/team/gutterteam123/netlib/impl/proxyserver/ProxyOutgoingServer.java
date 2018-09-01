@@ -1,19 +1,20 @@
 package team.gutterteam123.netlib.impl.proxyserver;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import team.gutterteam123.baselib.constants.CharsetConstants;
 import team.gutterteam123.netlib.NetServer;
-import team.gutterteam123.netlib.Registrys;
+import team.gutterteam123.netlib.handler.ConnectionCounter;
 import team.gutterteam123.netlib.packetbase.json.JsonPacket;
-import team.gutterteam123.netlib.packetbase.json.JsonPacketDecoder;
-import team.gutterteam123.netlib.packetbase.json.JsonPacketEncoder;
 
 public class ProxyOutgoingServer extends NetServer<JsonPacket> {
 
     private ProxyServer server;
+    private ConnectionCounter counter;
 
     public ProxyOutgoingServer(int port, ProxyServer server) {
         super(port);
@@ -26,9 +27,14 @@ public class ProxyOutgoingServer extends NetServer<JsonPacket> {
 
     @Override
     protected void onChannelCreation(ChannelPipeline pipeline) {
+        pipeline.addLast(counter);
         pipeline.addLast(new StringEncoder(CharsetConstants.getUTF_8()));
         pipeline.addLast(new StringDecoder(CharsetConstants.getUTF_8()));
         pipeline.addLast(new ProxyHandler());
+    }
+
+    public int getCount() {
+        return counter.getCount();
     }
 
     @Override
