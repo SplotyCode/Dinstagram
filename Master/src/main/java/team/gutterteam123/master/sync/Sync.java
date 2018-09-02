@@ -42,11 +42,6 @@ public class Sync {
         if (currentBest.equals(NetUtil.getRemoteIp())) {
             logger.info("Optimal Primary master is this machine! Starting Server...");
             server = new SyncServer();
-            server.setStart(() -> {
-                logger.info("Sync Server is up! Starting Client...");
-                client = new SyncClient(currentBest);
-                client.start();
-            });
             server.start();
         } else {
             logger.info("Starting Sync Client...");
@@ -63,11 +58,11 @@ public class Sync {
                 }
                 if (best.equals(NetUtil.getRemoteIp())) {
                     logger.info("Optimal Primary master is this machine");
+                    if (client != null) {
+                        client.shutdown();
+                        client = null;
+                    }
                     server = new SyncServer();
-                    server.setStart(() -> {
-                        client = new SyncClient(best);
-                        client.start();
-                    });
                     server.start();
                 } else {
                     client = new SyncClient(best);
