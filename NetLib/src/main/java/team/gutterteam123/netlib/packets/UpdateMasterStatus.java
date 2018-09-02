@@ -14,16 +14,22 @@ import java.util.Map;
 @NoArgsConstructor
 public class UpdateMasterStatus implements SerializedPacket {
 
-    private int usedRam;
+    private long freeRam;
     private int cpuPercentage;
     private HashMap<Integer, Integer> proxyConnections;
     private HashMap<Integer, Integer> contentConnections;
 
+    public void init() {
+        proxyConnections = new HashMap<>();
+        contentConnections = new HashMap<>();
+    }
 
     @Override
     public void read(PacketSerializer packet) {
-        usedRam = packet.readVarInt();
+        freeRam = packet.readLong();
         cpuPercentage = packet.readVarInt();
+
+        init();
 
         readMap(proxyConnections, packet);
         readMap(contentConnections, packet);
@@ -31,10 +37,8 @@ public class UpdateMasterStatus implements SerializedPacket {
 
     @Override
     public void write(PacketSerializer packet) {
-        packet.writeVarInt(usedRam);
+        packet.writeLong(freeRam);
         packet.writeVarInt(cpuPercentage);
-        proxyConnections = new HashMap<>();
-        contentConnections = new HashMap<>();
 
         writeMap(proxyConnections, packet);
         writeMap(contentConnections, packet);

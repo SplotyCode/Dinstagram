@@ -6,11 +6,13 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import lombok.EqualsAndHashCode;
 import team.gutterteam123.baselib.constants.CharsetConstants;
 import team.gutterteam123.netlib.NetServer;
 import team.gutterteam123.netlib.handler.ConnectionCounter;
 import team.gutterteam123.netlib.packetbase.json.JsonPacket;
 
+@EqualsAndHashCode(callSuper = true)
 public class ProxyOutgoingServer extends NetServer<JsonPacket> {
 
     private ProxyServer server;

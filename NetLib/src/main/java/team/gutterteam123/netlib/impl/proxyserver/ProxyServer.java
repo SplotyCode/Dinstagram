@@ -3,14 +3,16 @@ package team.gutterteam123.netlib.impl.proxyserver;
 import com.google.common.collect.HashBiMap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.net.SocketAddress;
 import java.util.HashMap;
 
+@EqualsAndHashCode
 public class ProxyServer {
 
-    private ProxyOutgoingServer server;
+    @Getter private ProxyOutgoingServer server;
 
     /* Our Client Ip Address - Proxy Client */
     @Getter private HashMap<SocketAddress, ProxyInternalClient> clients = new HashMap<>();

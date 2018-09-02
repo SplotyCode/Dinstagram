@@ -6,12 +6,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.concurrent.Future;
+import lombok.EqualsAndHashCode;
 import team.gutterteam123.baselib.constants.CharsetConstants;
 import team.gutterteam123.netlib.NetClient;
 import team.gutterteam123.netlib.packetbase.json.JsonPacket;
 
 import java.net.InetSocketAddress;
 
+@EqualsAndHashCode(callSuper = true)
 public class ProxyInternalClient extends NetClient<JsonPacket> {
 
     private ProxyServer server;

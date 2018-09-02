@@ -11,6 +11,8 @@ import team.gutterteam123.baselib.argparser.ArgumentBuilder;
 import team.gutterteam123.baselib.argparser.Parameter;
 import team.gutterteam123.baselib.config.ConfigHelper;
 import team.gutterteam123.baselib.constants.FileConstants;
+import team.gutterteam123.baselib.dinstagram.NetServerStats;
+import team.gutterteam123.baselib.dinstagram.RootStats;
 import team.gutterteam123.baselib.linked.MasterToBaseLinked;
 import team.gutterteam123.baselib.tasks.TaskManager;
 import team.gutterteam123.database.DatabaseConnection;
@@ -18,9 +20,15 @@ import team.gutterteam123.master.config.Config;
 import team.gutterteam123.master.sync.Sync;
 import team.gutterteam123.master.sync.SyncClient;
 import team.gutterteam123.master.tasks.UpdateStatusTask;
+import team.gutterteam123.netlib.impl.ContentServer;
+import team.gutterteam123.netlib.impl.proxyserver.ProxyServer;
 import team.gutterteam123.netlib.linked.MasterToNetLibLinked;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Master {
 
@@ -47,6 +55,12 @@ public class Master {
 
     @Getter private Sync sync;
 
+    @Getter private Set<RootStats> rootStats = new HashSet<>();
+    @Getter private Map<String, NetServerStats> contentStats = new HashMap<>();
+    @Getter private Map<String, NetServerStats> proxyStats = new HashMap<>();
+
+    @Getter private Set<ContentServer> contentServers = new HashSet<>();
+    @Getter private Set<ProxyServer> proxyServers = new HashSet<>();
 
     private Master(String[] args) throws Exception {
         Thread.currentThread().setName("Master - Main Thread");

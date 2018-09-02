@@ -51,17 +51,17 @@ public class DatabaseConnection {
     public void updateUser(UserObj user) {
         Document document = new Document();
         user.write(document);
-        users.replaceOne(Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField()), document);
+        //sers.replaceOne(Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField()), document);
     }
 
     public void deleteUser(UserObj user){
-        users.deleteOne(Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField()));
+        //users.deleteOne(Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField()));
     }
 
     public void deleteUsers(UserObj... user){
         Bson[] filters = new Bson[user.length];
         for (int i = 0; i < user.length; i++) {
-            filters[i] = Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField());
+            //filters[i] = Filters.eq("userId", UserObj.AccessRuleInt.USERID.getField());
         }
         users.deleteMany(Filters.or(filters));
     }

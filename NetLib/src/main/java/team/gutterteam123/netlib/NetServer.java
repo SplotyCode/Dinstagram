@@ -8,6 +8,7 @@ import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import team.gutterteam123.netlib.packetbase.Packet;
 
 import java.util.concurrent.ThreadFactory;
 
+@EqualsAndHashCode
 public abstract class NetServer<P extends Packet> extends Thread {
 
     private EventLoopGroup bossGroup, workerGroup;
@@ -27,10 +29,10 @@ public abstract class NetServer<P extends Packet> extends Thread {
     protected abstract void onChannelCreation(ChannelPipeline pipeline);
     protected abstract String getDisplayName();
 
-    protected int port;
+    @Getter protected int port;
     protected boolean epoll;
 
-    final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     private boolean stopping = false;
 
