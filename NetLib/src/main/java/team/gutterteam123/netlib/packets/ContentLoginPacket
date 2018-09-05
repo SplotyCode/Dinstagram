@@ -1,0 +1,13 @@
+package team.gutterteam123.netlib.packets;
+
+import team.gutterteam123.netlib.packetbase.json.JsonPacket;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+
+@Data
+@AllArgsConstructor
+public class ContentLoginPacket extends JsonPacket {
+  
+  private String name, password;
+
+}
