@@ -47,6 +47,8 @@ public class DatabaseConnection {
         user.write(document);
         users.insertOne(document);
     }
+    public Document getUpdateDocument(){
+    }
 
     public void updateUser(UserObj user) {
         Document document = new Document();
