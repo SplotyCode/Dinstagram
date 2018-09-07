@@ -65,7 +65,7 @@ public class UserObj implements DatabaseObj {
             this.field = field;
         }
 
-        public String[] toArray(PostObj.AccessRule... rules) {
+        public String[] toArray(AccessRule... rules) {
             String[] list = new String[rules.length];
             for (int i = 0; i < list.length; i++) {
                 list[i] = rules[i].field;
@@ -73,7 +73,7 @@ public class UserObj implements DatabaseObj {
             return list;
         }
 
-        public boolean ContainsAll(PostObj.AccessRule... rules) {
+        public boolean ContainsAll(AccessRule... rules) {
             return Arrays.asList(rules).contains(ALL);
         }
     }
@@ -89,16 +89,36 @@ public class UserObj implements DatabaseObj {
 
 
     }
-    public Document getUpdateDocument(){
+    public Document getUserDetails(AccessRule... rules) {
         Document set = new Document();
 
-        for(UserObj.AccessRule rule : rules){
-            switch(rule){
+        for (UserObj.AccessRule rule : rules) {
+            switch (rule) {
                 case NAME:
-                    set.append("name",this.name);
-
+                    set.append("name", this.name);
+                    break;
+                case PASSWORD:
+                    set.append("password", this.password);
+                    break;
+                case FOLLOWER:
+                    set.append("follower", this.follower);
+                    break;
+                case USERID:
+                    set.append("userId", this.userId);
+                    break;
+                case FOLLOWERINT:
+                    set.append("followerInt", this.followerInt);
+                    break;
+                case FOLLOWING:
+                    set.append("following", this.following);
+                    break;
+                case FOLLOWINGINT:
+                    set.append("followingInt", this.followingInt);
+                    break;
             }
         }
+
+        return set;
     }
 }
 

@@ -17,10 +17,10 @@ public class PostObj implements DatabaseObj {
     protected String messages;
     protected long imageId;
     protected long likesInt;
-    protected static Set<Long> idOfLikers;
+    protected Set<Long> idOfLikers;
     protected long commentsInt;
-    protected static List<String> comment;
-    protected static List<String> authorOfComment;
+    protected List<String> comment;
+    protected List<String> authorOfComment;
 
     @Override
     public void read(Document document) {
@@ -63,8 +63,36 @@ public class PostObj implements DatabaseObj {
             return Arrays.asList(rules).contains(ALL);
         }
     }
+    public void AccessRule(AccessRule... rules) {
+        Document set = new Document();
+
+        for (AccessRule rule : rules) {
+            switch (rule) {
+                case MESSAGES:
+                    set.append("messages", this.messages);
+                    break;
+                case IMAGEID:
+                    set.append("imageId", this.imageId);
+                    break;
+                case LIKESINT:
+                    set.append("likesInt", this.likesInt);
+                    break;
+                case IDOFLIKERS:
+                    set.append("idOfLikers", this.idOfLikers);
+                    break;
+                case AUTHOROFCOMMENT:
+                    set.append("authorOfComment", this.authorOfComment);
+                    break;
+                case COMMENT:
+                    set.append("comment", this.comment);
+                    break;
+                case COMMENTSINT:
+                    set.append("commentsInt", this.commentsInt);
+                    break;
+            }
+        }
 
 
-
+    }
     }
 
