@@ -43,7 +43,7 @@ public class UserObj implements DatabaseObj {
     @Override
     public void write(Document document) {
         document.put("name", name);
-        document.put("password", password)
+        document.put("password", password);
         document.put("userId", userId);
         document.put("following", following);
         document.put("follower", follower);
@@ -55,30 +55,54 @@ public class UserObj implements DatabaseObj {
 
 
     }
-    public enum AccessRuleString {
-        NAME("name"),IDOFLIKERS("following"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),PASSWORD("password"),USERID("userId"),FOLLOWER("follower"),FOLLOWING("following")FOLLOWERINT("followerint"),FOLLOWINGINT("followingint"),ALL("");
+
+    public enum AccessRule {
+        NAME("name"), PASSWORD("password"), USERID("userId"), FOLLOWER("follower"), FOLLOWING("following"), FOLLOWERINT("followerint"), FOLLOWINGINT("followingint"), ALL("");
         @Getter
         protected final String field;
 
-        AccessRuleString(String field) {
+        AccessRule(String field) {
             this.field = field;
         }
-        public String[] toArray(PostObj.AccessRuleString... rules){
+
+        public String[] toArray(PostObj.AccessRule... rules) {
             String[] list = new String[rules.length];
-            for (int i = 0; i < list.length; i++){
+            for (int i = 0; i < list.length; i++) {
                 list[i] = rules[i].field;
             }
             return list;
         }
-        public boolean ContainsAll(PostObj.AccessRuleString... rules){
+
+        public boolean ContainsAll(PostObj.AccessRule... rules) {
             return Arrays.asList(rules).contains(ALL);
         }
     }
 
+    public Document convertToBson() {
+        return new Document("name", this.name)
+                .append("password", this.password)
+                .append("userId", this.userId)
+                .append("follower", this.follower)
+                .append("following", this.following)
+                .append("followerInt", this.followerInt)
+                .append("followingInt", this.followingInt);
+
 
     }
+    public Document getUpdateDocument(){
+        Document set = new Document();
 
+        for(UserObj.AccessRule rule : rules){
+            switch(rule){
+                case NAME:
+                    set.append("name",this.name);
 
-
+            }
+        }
+    }
 }
+
+
+
+
 

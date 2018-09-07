@@ -47,8 +47,8 @@ public class DatabaseConnection {
         user.write(document);
         users.insertOne(document);
     }
-    public Document getUpdateDocument(){
-    }
+
+
 
     public void updateUser(UserObj user) {
         Document document = new Document();
@@ -69,7 +69,7 @@ public class DatabaseConnection {
     }
     public String getNameById(long id){
         UserObj user = getUserById(id);
-        return UserObj.AccessRuleString.NAME.getField();
+        return UserObj.AccessRule.NAME.
     }
     public long getLikesOfImage(){
         return ImageObj.AccessRuleInt.LIKESINT.getField();
