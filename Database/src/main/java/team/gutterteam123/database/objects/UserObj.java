@@ -43,6 +43,7 @@ public class UserObj implements DatabaseObj {
     @Override
     public void write(Document document) {
         document.put("name", name);
+        document.put("password", password)
         document.put("userId", userId);
         document.put("following", following);
         document.put("follower", follower);
@@ -55,7 +56,7 @@ public class UserObj implements DatabaseObj {
 
     }
     public enum AccessRuleString {
-        NAME("name"),IDOFLIKERS("following"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),ALL("");
+        NAME("name"),IDOFLIKERS("following"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),PASSWORD("password"),USERID("userId"),FOLLOWER("follower"),FOLLOWING("following")FOLLOWERINT("followerint"),FOLLOWINGINT("followingint"),ALL("");
         @Getter
         protected final String field;
 
@@ -73,28 +74,6 @@ public class UserObj implements DatabaseObj {
             return Arrays.asList(rules).contains(ALL);
         }
     }
-    public enum AccessRuleInt{
-        //POSTSINT(postsInt), FOLLOWINGINT(followingInt), FOLLOWERINT(followerInt), LASTPOST(lastPost), USERID(userId),ALL(0);
-        ;
-        @Getter
-        protected final int field;
-
-        AccessRuleInt(int field){
-            this.field = field;
-
-        }
-        public Integer[] toArray(PostObj.AccessRuleInt... rules){
-            Integer[] list = new Integer[rules.length];
-            for (int i = 0;i< list.length; i++){
-                list[i] = rules[i].field;
-            }
-            return list;
-
-        }
-        public boolean ContainsAll(PostObj.AccessRuleInt... rules){
-            //return Arrays.asList(rules).contains(ALL);
-            return true;
-        }
 
 
     }
