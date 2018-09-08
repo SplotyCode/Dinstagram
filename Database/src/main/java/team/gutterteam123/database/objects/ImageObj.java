@@ -12,8 +12,8 @@ import java.util.*;
 public class ImageObj implements DatabaseObj {
 
     protected long imageId;
-    private String hash;
-    private String base64;
+    protected String hash;
+    protected String base64;
 
     @Override
     public void read(Document document) {
@@ -30,53 +30,44 @@ public class ImageObj implements DatabaseObj {
         document.put("hash", hash);
         document.put("base64", base64);
     }
-    public enum AccessRuleInt {
-        IMAGEID(0),LIKESINT(0),COMMENTSINT(0),ALL(0);
+    public enum AccessRule {
+        IMAGEID("imageId"),HASH("hash"),BASE64("base64"),ALL("");
         @Getter
-        protected final long field;
+        protected final String field;
 
-        AccessRuleInt(int field){
+        AccessRule(String field){
             this.field = field;
         }
-        public Long[] toArray(AccessRuleInt... rules) {
-            Long[] list = new Long[rules.length];
+        public String[] toArray(AccessRule... rules) {
+            String[] list = new String[rules.length];
             for (int i = 0; i < list.length; i++) {
                 list[i] = rules[i].field;
             }
             return list;
         }
 
-            public boolean ContainsAll(AccessRuleInt... rules){
+            public boolean ContainsAll(AccessRule... rules){
                 return Arrays.asList(rules).contains(ALL);
             }
     }
-    public enum AccessRuleSetString{
-        COMMENT(null),AUTHOROFCOMMENT(null),ALL(null);
+    public Document getImageDetails(AccessRule... rules) {
+        Document set = new Document();
 
-        @Getter
-        protected final Set<String> field;
-
-        AccessRuleSetString(Set<String> field){
-           this.field = field;
+        for (AccessRule rule : rules) {
+            switch (rule) {
+                case IMAGEID:
+                    set.append("imageId", imageId);
+                    break;
+                case HASH:
+                    set.append("hash", hash);
+                    break;
+                case BASE64:
+                    set.append("base64", base64);
+                    break;
+            }
         }
+        return set;
 
-
-        public boolean ContainsAll(){
-            return field.contains(ALL);
-        }
-
-    }
-    public enum AccessRuleSetInt{
-        IDOFLIKERS(null),ALL(null);
-        @Getter
-        protected final Set<Integer> field;
-
-        AccessRuleSetInt(Set<Integer> field){
-            this.field = field;
-        }
-        public boolean ContainsAll(AccessRuleSetInt rules){
-            return field.contains(ALL);
-        }
     }
 
 
