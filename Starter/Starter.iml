@@ -15,6 +15,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.6" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jgit:org.eclipse.jgit:5.0.2.201807311906-r" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.54" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft:jzlib:1.1.1" level="project" />

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class ContentLoginPacket extends JsonPacket {
+public class ContentLoginPacket implements JsonPacket {
   
   private String name, password;
 

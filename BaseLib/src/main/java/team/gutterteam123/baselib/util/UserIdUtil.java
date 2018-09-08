@@ -1,10 +1,15 @@
-package Dinstagram.BaseLib.src.main.java.team.gutterteam123.baselib.util;
+package team.gutterteam123.baselib.util;
+
+import org.bson.Document;
 
 public class UserIdUtil{
-public long lastId = 0;
-public long userId;
+long lastId;
+long userId;
     public long newUserId(){
-        userId = lastId++;
+        Document lastUserIdSafe = new Document();
+        lastUserIdSafe.put("lastId", lastId);
+        lastId = lastUserIdSafe.getLong("lastId");
+        lastId++;
         lastId  = userId;
         return userId;
     }
