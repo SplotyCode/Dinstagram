@@ -2,13 +2,14 @@ package team.gutterteam123.database.objects;
 
 import lombok.Getter;
 import org.bson.Document;
+import sun.security.x509.CertAttrSet;
 import team.gutterteam123.database.DatabaseObj;
 
 import java.util.Arrays;
 
 public class Message implements DatabaseObj {
 
-    private String creationTime;
+    protected String creationTime;
     private String content;
     private String sender;
     private String receiver;
@@ -33,6 +34,8 @@ public class Message implements DatabaseObj {
         CREATIONTIME("creationTime"),CONTENT("content"),SENDER("sender"),RECEIVER("receiver"),ALL("");
         @Getter
     protected final String field;
+
+
         AccessRule(String field){
             this.field = field;
         }
@@ -48,9 +51,26 @@ public class Message implements DatabaseObj {
             return Arrays.asList(rules).contains(ALL);
 
         }
-        public Document getMessageDetails(AccessRule... rules){
-                Document set = new Document();
-            return set;
+
         }
+    public Document getMessageDetails(AccessRule... rules){
+        Document set = new Document();
+        for(Message.AccessRule rule : rules){
+            switch(rule){
+                case CREATIONTIME:
+                    set.append("creationTime",creationTime);
+                    break;
+                case CONTENT:
+                    set.append("content",content);
+                    break;
+                case SENDER:
+                    set.append("sender",sender);
+                    break;
+                case RECEIVER:
+                    set.append("receiver",receiver);
+                    break;
+            }
+        }
+        return set;
     }
 }

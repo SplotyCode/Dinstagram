@@ -89,38 +89,40 @@ public class UserObj implements DatabaseObj {
 
 
     }
+
+
+
     public Document getUserDetails(AccessRule... rules) {
         Document set = new Document();
 
-        for (UserObj.AccessRule rule : rules) {
-            switch (rule) {
-                case NAME:
-                    set.append("name", this.name);
-                    break;
-                case PASSWORD:
-                    set.append("password", this.password);
-                    break;
-                case FOLLOWER:
-                    set.append("follower", this.follower);
-                    break;
-                case USERID:
-                    set.append("userId", this.userId);
-                    break;
-                case FOLLOWERINT:
-                    set.append("followerInt", this.followerInt);
-                    break;
-                case FOLLOWING:
-                    set.append("following", this.following);
-                    break;
-                case FOLLOWINGINT:
-                    set.append("followingInt", this.followingInt);
-                    break;
-            }
+for (UserObj.AccessRule rule : rules) {
+        switch (rule) {
+            case NAME:
+                set.append("name", this.name);
+                break;
+            case PASSWORD:
+                set.append("password", this.password);
+                break;
+            case FOLLOWER:
+                set.append("follower", this.follower);
+                break;
+            case USERID:
+                set.append("userId", this.userId);
+                break;
+            case FOLLOWERINT:
+                set.append("followerInt", this.followerInt);
+                break;
+            case FOLLOWING:
+                set.append("following", this.following);
+                break;
+            case FOLLOWINGINT:
+                set.append("followingInt", this.followingInt);
+                break;
         }
 
-        return set;
     }
-}
+        return set;
+    }}
 
 
 
