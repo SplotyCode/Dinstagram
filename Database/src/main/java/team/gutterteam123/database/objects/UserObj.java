@@ -43,6 +43,7 @@ public class UserObj implements DatabaseObj {
     @Override
     public void write(Document document) {
         document.put("name", name);
+        document.put("password", password);
         document.put("userId", userId);
         document.put("following", following);
         document.put("follower", follower);
@@ -54,52 +55,76 @@ public class UserObj implements DatabaseObj {
 
 
     }
-    public enum AccessRuleString {
-        NAME("name"),IDOFLIKERS("following"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),ALL("");
+
+    public enum AccessRule {
+        NAME("name"), PASSWORD("password"), USERID("userId"), FOLLOWER("follower"), FOLLOWING("following"), FOLLOWERINT("followerint"), FOLLOWINGINT("followingint"), ALL("");
         @Getter
         protected final String field;
 
-        AccessRuleString(String field) {
+        AccessRule(String field) {
             this.field = field;
         }
-        public String[] toArray(PostObj.AccessRuleString... rules){
+
+        public String[] toArray(AccessRule... rules) {
             String[] list = new String[rules.length];
-            for (int i = 0; i < list.length; i++){
+            for (int i = 0; i < list.length; i++) {
                 list[i] = rules[i].field;
             }
             return list;
         }
-        public boolean ContainsAll(PostObj.AccessRuleString... rules){
+
+        public boolean ContainsAll(AccessRule... rules) {
             return Arrays.asList(rules).contains(ALL);
         }
     }
-    public enum AccessRuleInt{
-        //POSTSINT(postsInt), FOLLOWINGINT(followingInt), FOLLOWERINT(followerInt), LASTPOST(lastPost), USERID(userId),ALL(0);
-        ;
-        @Getter
-        protected final int field;
 
-        AccessRuleInt(int field){
-            this.field = field;
-
-        }
-        public Integer[] toArray(PostObj.AccessRuleInt... rules){
-            Integer[] list = new Integer[rules.length];
-            for (int i = 0;i< list.length; i++){
-                list[i] = rules[i].field;
-            }
-            return list;
-
-        }
-        public boolean ContainsAll(PostObj.AccessRuleInt... rules){
-            //return Arrays.asList(rules).contains(ALL);
-            return true;
-        }
+    public Document convertToBson() {
+        return new Document("name", this.name)
+                .append("password", this.password)
+                .append("userId", this.userId)
+                .append("follower", this.follower)
+                .append("following", this.following)
+                .append("followerInt", this.followerInt)
+                .append("followingInt", this.followingInt);
 
 
     }
 
 
 
-}
+    public Document getUserDetails(AccessRule... rules) {
+        Document set = new Document();
+
+for (UserObj.AccessRule rule : rules) {
+        switch (rule) {
+            case NAME:
+                set.append("name", this.name);
+                break;
+            case PASSWORD:
+                set.append("password", this.password);
+                break;
+            case FOLLOWER:
+                set.append("follower", this.follower);
+                break;
+            case USERID:
+                set.append("userId", this.userId);
+                break;
+            case FOLLOWERINT:
+                set.append("followerInt", this.followerInt);
+                break;
+            case FOLLOWING:
+                set.append("following", this.following);
+                break;
+            case FOLLOWINGINT:
+                set.append("followingInt", this.followingInt);
+                break;
+        }
+
+    }
+        return set;
+    }}
+
+
+
+
 

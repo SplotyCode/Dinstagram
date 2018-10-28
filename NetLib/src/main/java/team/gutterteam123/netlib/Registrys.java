@@ -34,5 +34,7 @@ public class Registrys {
 
         /* Balancer */
         balancerOut.register(ProxyBalancerResponse.class);
+        /* Login */
+        contentIn.register(ContentLoginPacket.class);
     }
 }

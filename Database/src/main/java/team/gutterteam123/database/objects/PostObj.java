@@ -17,10 +17,10 @@ public class PostObj implements DatabaseObj {
     protected String messages;
     protected long imageId;
     protected long likesInt;
-    protected static Set<Long> idOfLikers;
+    protected Set<Long> idOfLikers;
     protected long commentsInt;
-    protected static List<String> comment;
-    protected static List<String> authorOfComment;
+    protected List<String> comment;
+    protected List<String> authorOfComment;
 
     @Override
     public void read(Document document) {
@@ -44,62 +44,55 @@ public class PostObj implements DatabaseObj {
         document.put("authorOfComment",authorOfComment);
 
     }
-    public enum AccessRuleString {
-        MESSAGES("messages"),IDOFLIKERS("following"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),ALL("");
+    public enum AccessRule {
+        MESSAGES("messages"),IMAGEID("imageId"),LIKESINT("likesInt"),IDOFLIKERS("idOfLikers"),COMMENTSINT("commentsInt"),COMMENT("comment"),AUTHOROFCOMMENT("authorOfComment"),ALL("");
         @Getter
         protected final String field;
 
-        AccessRuleString(String field) {
+        AccessRule(String field) {
             this.field = field;
         }
-        public String[] toArray(AccessRuleString... rules){
+        public String[] toArray(AccessRule... rules){
             String[] list = new String[rules.length];
             for (int i = 0; i < list.length; i++){
                 list[i] = rules[i].field;
             }
             return list;
         }
-        public boolean ContainsAll(AccessRuleString... rules){
+        public boolean ContainsAll(AccessRule... rules){
             return Arrays.asList(rules).contains(ALL);
         }
     }
-    public enum AccessRuleInt{
-        IMAGEID(0),LIKESINT(0),COMMENTSINT(0),ALL(0);
-        @Getter
-        protected final int field;
+    public void AccessRule(AccessRule... rules) {
+        Document set = new Document();
 
-        AccessRuleInt(int field){
-            this.field = field;
-
-        }
-        public Integer[] toArray(AccessRuleInt... rules){
-            Integer[] list = new Integer[rules.length];
-            for (int i = 0;i< list.length; i++){
-                list[i] = rules[i].field;
+        for (AccessRule rule : rules) {
+            switch (rule) {
+                case MESSAGES:
+                    set.append("messages", this.messages);
+                    break;
+                case IMAGEID:
+                    set.append("imageId", this.imageId);
+                    break;
+                case LIKESINT:
+                    set.append("likesInt", this.likesInt);
+                    break;
+                case IDOFLIKERS:
+                    set.append("idOfLikers", this.idOfLikers);
+                    break;
+                case AUTHOROFCOMMENT:
+                    set.append("authorOfComment", this.authorOfComment);
+                    break;
+                case COMMENT:
+                    set.append("comment", this.comment);
+                    break;
+                case COMMENTSINT:
+                    set.append("commentsInt", this.commentsInt);
+                    break;
             }
-            return list;
+        }
 
-        }
-        public boolean ContainsAll(AccessRuleInt... rules){
-            return Arrays.asList(rules).contains(ALL);
-        }
 
     }
-    public enum AccessRuleSetString{
-        COMMENT(comment),AUTHOROFCOMMENT(authorOfComment),ALL(null);
-
-        @Getter
-        protected final List<String> field;
-
-        AccessRuleSetString(List<String> field){
-            this.field = field;
-        }
-
-
-        public boolean ContainsAll(){
-            return field.contains(ALL);
-        }
-
     }
 
-}

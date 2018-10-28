@@ -1,9 +1,11 @@
 # Dinstagram
 
-Dinstagram is a Instagram Clone that focuses on Scaling.
+Dinstagram is a Instagram Clone that focusses on scaling.
 It uses MondoDB and Redis as Datase. (Redis is only for caching stuff).
 The Server part is programed in Java.
-The Client is made in C++.
+The Client is made in Html/Javascript.
+
+
 
 __Dependecys__<br>
 guava (14.0.1 | 26.0-jre)<br>
