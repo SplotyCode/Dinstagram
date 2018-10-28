@@ -16,6 +16,10 @@ public final class TimeConstants {
 
     @Getter private static final long UPLOAD_STATUS_DELAY = /* 15 Seconds */ 15 * 1000;
     @Getter private static final long MIN_STATUS_UPDATE_INTERVAL = /* 20 Seconds */ 20 * 1000;
-    @Getter private static final long MAX_STATUS_UPDATE_INTERVAL = /* 20 Seconds */ 45 * 1000;
+    @Getter private static final long MAX_STATUS_UPDATE_INTERVAL = /* 45 Seconds */ 45 * 1000;
+
+    @Getter private static final long UPDATE_ALL_STATUS_DELAY = /* 15 Seconds */ 15 * 1000;
+    @Getter private static final long MIN_STATUS_UPDATE_ALL_INTERVAL = /* 25 Seconds */ 25 * 1000;
+    @Getter private static final long MAX_STATUS_UPDATE_ALL_INTERVAL = /* 45 Seconds */ 45 * 1000;
 
 }

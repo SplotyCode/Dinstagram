@@ -8,7 +8,9 @@ import io.netty.handler.codec.LengthFieldPrepender;
 import lombok.Getter;
 import lombok.Setter;
 import team.gutterteam123.baselib.constants.PortConstants;
+import team.gutterteam123.baselib.tasks.TaskManager;
 import team.gutterteam123.master.Master;
+import team.gutterteam123.master.tasks.UpdateAllStatusTask;
 import team.gutterteam123.netlib.NetServer;
 import team.gutterteam123.netlib.Registrys;
 import team.gutterteam123.netlib.handler.RootAuthHandler;
@@ -27,6 +29,8 @@ public class SyncServer extends NetServer {
 
     @Getter @Setter private Runnable start;
 
+    private UpdateAllStatusTask updateAllStatusTask = new UpdateAllStatusTask();
+
     @Override protected void onClose(ChannelFuture future) {}
 
     @Override
@@ -34,6 +38,7 @@ public class SyncServer extends NetServer {
         if (start != null) {
             start.run();
         }
+        TaskManager.getInstance().registerTask(updateAllStatusTask);
     }
 
     @Override
@@ -56,12 +61,19 @@ public class SyncServer extends NetServer {
                 Master.getInstance().getSync().setClient(new SyncClient(destroyPacket.getBetterRoot()));
                 Master.getInstance().getSync().getClient().start();
             }
+            //TODO handle UpdateMasterStatus packet and make list of clients
         }
 
         @Override
         protected Set<String> getRoots() {
             return Master.getInstance().getConfig().getRoots();
         }
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        TaskManager.getInstance().registerTask(updateAllStatusTask);
     }
 
     @Override

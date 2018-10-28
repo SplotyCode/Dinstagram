@@ -30,4 +30,8 @@ public class TaskManager {
         tasks.add(task);
     }
 
+    public void unregisterTask(Task task) {
+        tasks.remove(task);
+    }
+
 }

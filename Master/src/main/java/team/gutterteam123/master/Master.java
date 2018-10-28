@@ -13,13 +13,12 @@ import team.gutterteam123.baselib.config.ConfigHelper;
 import team.gutterteam123.baselib.constants.FileConstants;
 import team.gutterteam123.baselib.dinstagram.NetServerStats;
 import team.gutterteam123.baselib.dinstagram.RootStats;
-import team.gutterteam123.baselib.linked.MasterToBaseLinked;
 import team.gutterteam123.baselib.tasks.TaskManager;
 import team.gutterteam123.database.DatabaseConnection;
 import team.gutterteam123.master.config.Config;
 import team.gutterteam123.master.sync.Sync;
 import team.gutterteam123.master.sync.SyncClient;
-import team.gutterteam123.master.tasks.UpdateStatusTask;
+import team.gutterteam123.master.tasks.UpdateOwnStatusTask;
 import team.gutterteam123.netlib.impl.ContentServer;
 import team.gutterteam123.netlib.impl.proxyserver.ProxyServer;
 import team.gutterteam123.netlib.linked.MasterToNetLibLinked;
@@ -82,7 +81,7 @@ public class Master {
 
         db = new DatabaseConnection(rawConfig.getString("mongo"));
 
-        TaskManager.getInstance().registerTask(new UpdateStatusTask());
+        TaskManager.getInstance().registerTask(new UpdateOwnStatusTask());
     }
 
     private void setupLibLinks() {

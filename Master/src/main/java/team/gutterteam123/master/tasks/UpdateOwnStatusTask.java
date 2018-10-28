@@ -10,9 +10,9 @@ import team.gutterteam123.netlib.packets.UpdateMasterStatus;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class UpdateStatusTask extends TimerTask implements Runnable {
+public class UpdateOwnStatusTask extends TimerTask implements Runnable {
 
-    public UpdateStatusTask() {
+    public UpdateOwnStatusTask() {
         super(true, null, getTimerDelay(), TimeConstants.getUPLOAD_STATUS_DELAY());
         runnable = this;
     }
